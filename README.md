@@ -1,4 +1,4 @@
-# Data Vizualization Blocks (Experimental)
+# Data Visualization Blocks (Experimental)
 
 _Just another bundle of blocks plugin._
 
