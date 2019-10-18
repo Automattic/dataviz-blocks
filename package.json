@@ -7,8 +7,8 @@
   "license": "ISC",
   "scripts": {
     "env": "wp-scripts env",
-    "start": "node-sass ./src/editor.scss -o build && node-sass ./src/style.scss -o build && wp-scripts start & node-sass --watch ./src/editor.scss -o build & node-sass --watch ./src/style.scss -o build",
-    "build": "wp-scripts build && node-sass ./src/editor.scss -o build && node-sass ./src/style.scss -o build"
+    "start": "node-sass ./src/styles/editor.scss -o build && node-sass ./src/styles/style.scss -o build && wp-scripts start & node-sass --watch ./src/styles/editor.scss -o build & node-sass --watch ./src/styles/style.scss -o build",
+    "build": "wp-scripts build && node-sass ./src/styles/editor.scss -o build && node-sass ./src/styles/style.scss -o build"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
