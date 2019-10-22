@@ -6,7 +6,7 @@ A bundle of blocks for quick and easy data visualizations. Experimental.
 
 ## Blocks
 
-Once plugin's activated, a new category "Dataviz Blocks" will show up in the selection popover. There is currently only a demo-d3 block there rendering a simple svg with d3 in both editor & frontend.
+Once plugin's activated, a new category `Dataviz Blocks` will show up in the Add Block popover. There is currently only a demo-d3 block there rendering a simple svg with d3 in both editor & frontend.
 
 ## Technical
 
