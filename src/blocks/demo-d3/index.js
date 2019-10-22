@@ -12,9 +12,9 @@ import save from './save';
 import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
-	registerBlockType( 'a8c/stacked-bar', {
-		title: __( 'Stacked Barchart Block' ),
-		description: __( 'This is a Stacked Barchart block.' ),
+	registerBlockType( 'a8c-dataviz/demo-d3', {
+		title: __( 'Demo D3' ),
+		description: __( 'This is a demo.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		styles: [
@@ -29,15 +29,12 @@ export function registerBlock() {
 			},
 		],
 		attributes: {
-			name: {
-				type: 'string',
-			},
-			description: {
-				type: 'string',
-			},
 			alignment: {
 				type: 'string',
 				default: 'left',
+			},
+			className: {
+				type: 'string',
 			},
 		},
 		edit,

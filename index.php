@@ -107,6 +107,15 @@ add_action( 'init', function() {
 		true
 	);
 
+	// Block front end JS
+	wp_register_script(
+		'dataviz-frontend',
+		plugins_url( 'build/frontend.js', __FILE__ ),
+		[], // no dependencies
+		filemtime( plugin_dir_path( __FILE__ ) . 'build/frontend.js' ),
+		true // in footer
+	);
+
 	// Block front end style
 	wp_register_style(
 		'dataviz-blocks',
@@ -122,5 +131,10 @@ add_action( 'init', function() {
 		[],
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/editor.css' )
 	);
+
+	// Link our registered front end JS
+	add_action( 'wp_enqueue_scripts', function() {
+		wp_enqueue_script( 'dataviz-frontend' );
+	} );
 } );
 

@@ -3,39 +3,30 @@
  */
 // eslint-disable-next-line wpcalypso/import-docblock
 import { __ } from '@wordpress/i18n';
-import { BlockControls, InspectorControls, InnerBlocks } from '@wordpress/block-editor';
+import { BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { Toolbar, PanelBody } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
+
+/**
+ * Internal dependencies.
+ */
+// import renderHelloD3 from '../../shared/render-hello-d3';
+import HelloD3 from './hello-d3';
 
 const edit = ( { currentUser, className, setAttributes, attributes: { alignment } } ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
 
+	useEffect( () => {
+		setAttributes( { className } );
+	}, [] );
+
 	return (
 		<>
 			<div className={ className }>
-				<div className={ 'wp-block-a8c-foo__text' }>
-					<InnerBlocks
-						template={ [
-							[
-								'core/heading',
-								{
-									level: 3,
-									placeholder: 'Your name.',
-									content: currentUser.name,
-								},
-							],
-							[
-								'core/paragraph',
-								{
-									placeholder: 'Your description.',
-									content: currentUser.description,
-								},
-							],
-						] }
-					/>
-				</div>
+				<HelloD3 className={ className } data={ __( 'I am a React+D3 block in the editor.' ) } />
 			</div>
 			<BlockControls>
 				<Toolbar
@@ -56,8 +47,7 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment 
 				/>
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={ 'Stacked Barchart Style' }>
-				</PanelBody>
+				<PanelBody title={ 'Demo D3 Style' }></PanelBody>
 			</InspectorControls>
 		</>
 	);

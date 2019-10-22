@@ -6,11 +6,44 @@ A bundle of blocks for quick and easy data visualizations. Experimental.
 
 ## Blocks
 
+### Demo D3
+
 ...
 
 ## Development
 
-This is an experimental/playground repo. The setup's borrowed (in some form) from https://github.com/automattic/wpcom-blocks. Same development workflow (with `wpcom` replaced by `dataviz` where relevant), except blocks and other relevant code (`editor.scss`, `style.scss`) now live under `src`.
+This is an experimental/playground repo. The setup's borrowed (in some form) from https://github.com/automattic/wpcom-blocks. Same development workflow (with `wpcom` replaced by `dataviz` where relevant). There are a few important differences: blocks and other relevant code (`editor.scss`, `style.scss`, etc.) now live under `src`, and blocks contain a `frontend` folder where all the JS required for the frontend are exposed. A separate build process compiles these into a separate bundle for serving on the frontend only (pressumably these are the minimal code needed to render the svg/d3).
+
+The folder structure is as follows:
+
+```
+src/
+|–– blocks/
+|–– components/
+|–– shared/
+|–– styles/
+    |–– editor.scss
+    |–– style.scss
+|–– frontend.js
+|–– index.js
+```
+
+where `shared` includes any standalone functions that are shared between the editor and the frontend. For a single block, the structure is a typical block's, with styles contained in `styles` and frontend JS in `frontend`:
+
+```
+block-name/
+|–– frontend/
+    |–– index.js
+|–– styles/
+    |–– editor.scss
+    |–– style.scss
+|–– edit.js
+|–– index.js
+|–– index.php
+|–– save.js
+```
+
+`demo-d3` demonstrates the above rendering a simple svg with d3 in both editor & frontend. The frontend code only loads the bare minimum required d3 routine.
 
 ### Installation
 
