@@ -6,9 +6,7 @@ A bundle of blocks for quick and easy data visualizations. Experimental.
 
 ## Blocks
 
-### Demo D3
-
-...
+Once plugin's activated, a new category "Dataviz Blocks" will show up in the selection popover. There is currently only a demo-d3 block there rendering a simple svg with d3 in both editor & frontend.
 
 ## Development
 
@@ -43,7 +41,7 @@ block-name/
 |–– save.js
 ```
 
-`demo-d3` demonstrates the above rendering a simple svg with d3 in both editor & frontend. The frontend code only loads the bare minimum required d3 routine.
+[demo-d3](https://github.com/Automattic/dataviz-blocks/tree/master/src/blocks/demo-d3) demonstrates the above rendering a simple svg with d3 in both editor & frontend. The frontend code only loads the bare minimum required d3 routine.
 
 ### Installation
 
