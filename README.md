@@ -8,7 +8,7 @@ A bundle of blocks for quick and easy data visualizations. Experimental.
 
 Once plugin's activated, a new category "Dataviz Blocks" will show up in the selection popover. There is currently only a demo-d3 block there rendering a simple svg with d3 in both editor & frontend.
 
-## Development
+## Technical
 
 This is an experimental/playground repo. The setup's borrowed (in some form) from https://github.com/automattic/wpcom-blocks. Same development workflow (with `wpcom` replaced by `dataviz` where relevant). There are a few important differences: blocks and other relevant code (`editor.scss`, `style.scss`, etc.) now live under `src`, and blocks contain a `frontend` folder where all the JS required for the frontend are exposed. A separate build process compiles these into a separate bundle for serving on the frontend only (pressumably these are the minimal code needed to render the svg/d3).
 
@@ -43,13 +43,11 @@ block-name/
 
 [demo-d3](https://github.com/Automattic/dataviz-blocks/tree/master/src/blocks/demo-d3) demonstrates the above rendering a simple svg with d3 in both editor & frontend. The frontend code only loads the bare minimum required d3 routine.
 
-### Installation
+### Development
 
 Install the build scripts with:
 
 `yarn install`
-
-### Development
 
 Run the development build with watchers:
 
