@@ -33,7 +33,10 @@ export function registerBlock() {
 				type: 'string',
 				default: 'left',
 			},
-			className: {
+			class_name: {
+				type: 'string',
+			},
+			data: {
 				type: 'string',
 			},
 		},

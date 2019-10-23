@@ -3,24 +3,25 @@
  */
 import * as d3 from 'd3';
 
-export default function renderHelloD3( ref, data ) {
-	const svg = d3.select( ref );
+export default function renderHelloD3( ref ) {
+	const matching = d3.selectAll( ref );
 
-	if ( svg.empty() ) {
-		return;
-	}
-
-	const datum = data ? data : svg.attr( 'data' );
-
-	if ( ! datum ) {
+	if ( matching.empty() ) {
 		return;
 	}
 
 	// clear existing content
-	svg.selectAll( '*' ).remove();
+	matching.selectAll( '*' ).remove();
+	matching.each( renderText );
+}
+
+function renderText( d, i ) {
+	const svg = d3.select( this );
 
 	svg.append( 'text' )
 		.attr( 'fill', 'black' )
 		.attr( 'y', '20px' )
-		.text( datum );
+		.text( () => {
+			return `${ svg.attr( 'data' ) } ${ i + 1 }`;
+		} );
 }

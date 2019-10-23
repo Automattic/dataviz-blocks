@@ -132,6 +132,8 @@ add_action( 'init', function() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/editor.css' )
 	);
 
+	// wp_localize_script( 'dataviz-frontend', 'object_name', array( 'foo' => 123 ) );
+
 	// Link our registered front end JS
 	add_action( 'wp_enqueue_scripts', function() {
 		wp_enqueue_script( 'dataviz-frontend' );
