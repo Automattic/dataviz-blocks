@@ -21,7 +21,7 @@ src/
 |–– styles/
     |–– editor.scss
     |–– style.scss
-|–– utils/
+|–– shared/
 |–– frontend.js
 |–– index.js
 ```
