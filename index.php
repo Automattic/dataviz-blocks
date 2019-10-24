@@ -108,6 +108,9 @@ add_action( 'init', function() {
 	);
 
 	// Block front end JS
+	// @todo: clk: Potentially break this out into individual block scripts,
+	// and add d3 as dependency (will need to be in sync with backend).
+	// Let blocks enqueu/link their individual scripts.
 	wp_register_script(
 		'dataviz-frontend',
 		plugins_url( 'build/frontend.js', __FILE__ ),
@@ -115,6 +118,9 @@ add_action( 'init', function() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/frontend.js' ),
 		true // in footer
 	);
+
+	// Link our registered front end JS
+	wp_enqueue_script( 'dataviz-frontend' );
 
 	// Block front end style
 	wp_register_style(
@@ -131,12 +137,4 @@ add_action( 'init', function() {
 		[],
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/editor.css' )
 	);
-
-	// wp_localize_script( 'dataviz-frontend', 'object_name', array( 'foo' => 123 ) );
-
-	// Link our registered front end JS
-	add_action( 'wp_enqueue_scripts', function() {
-		wp_enqueue_script( 'dataviz-frontend' );
-	} );
 } );
-

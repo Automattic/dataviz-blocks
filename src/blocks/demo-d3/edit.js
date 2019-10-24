@@ -11,7 +11,7 @@ import { useEffect } from '@wordpress/element';
 /**
  * Internal dependencies.
  */
-import renderHelloD3 from '../../shared/render-hello-d3';
+import renderHelloD3 from './utils/render-hello-d3';
 // import HelloD3 from './hello-d3';
 
 function D3Canvas( { className, data } ) {

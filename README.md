@@ -18,15 +18,15 @@ The folder structure is as follows:
 src/
 |–– blocks/
 |–– components/
-|–– shared/
 |–– styles/
     |–– editor.scss
     |–– style.scss
+|–– utils/
 |–– frontend.js
 |–– index.js
 ```
 
-where `shared` includes any standalone functions that are shared between the editor and the frontend. For a single block, the structure is a typical block's, with styles contained in `styles` and frontend JS in `frontend`:
+For a single block, the structure is a typical block's, with styles contained in `styles` and frontend JS in `frontend`. `utils` includes code shared between the editor and the frontend (e.g. `d3` svg render routines).
 
 ```
 block-name/
@@ -35,6 +35,7 @@ block-name/
 |–– styles/
     |–– editor.scss
     |–– style.scss
+|–– utils/
 |–– edit.js
 |–– index.js
 |–– index.php
