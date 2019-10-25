@@ -26,7 +26,7 @@ src/
 |–– index.js
 ```
 
-For a single block, the structure is a typical block's, with styles contained in `styles` and frontend JS in `frontend`. `utils` includes code shared between the editor and the frontend (e.g. `d3` svg render routines).
+For a single block, the structure is a typical block's, with styles contained in `styles` and frontend JS in `frontend`. `utils` includes code shared between the editor and the frontend (e.g. `d3` code to render charts/graphs/etc).
 
 ```
 block-name/
