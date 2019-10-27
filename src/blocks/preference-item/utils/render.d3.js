@@ -3,7 +3,7 @@
  */
 import * as d3 from 'd3';
 
-export default function draw( ref ) {
+export default function render( ref ) {
 	const matching = d3.selectAll( ref );
 
 	if ( matching.empty() ) {

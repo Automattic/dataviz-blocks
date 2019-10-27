@@ -3,51 +3,42 @@
  */
 // eslint-disable-next-line wpcalypso/import-docblock
 import { __ } from '@wordpress/i18n';
-import { BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { BlockControls, InspectorControls, RichText, InnerBlocks } from '@wordpress/block-editor';
 import { Toolbar, PanelBody } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies.
  */
-import draw from './utils/render-preference-list';
+import HeadingToolbar from '../../components/heading-toolbar';
 
-function D3Canvas( { className, data } ) {
-	useEffect( () => {
-		if ( data ) {
-			draw( `.${ className }__svg` );
-		}
-	}, [ data ] );
+const ALLOWED_BLOCKS = [ 'a8c-dataviz/preference-item' ];
+const TEMPLATE = [ [ 'a8c-dataviz/preference-item' ] ];
 
-	return (
-		<div className={ className }>
-			<svg
-				className={ `${ className }__svg` }
-				height="100"
-				width="500"
-				viewBox="0 0 500 100"
-				data={ data }
-			/>
-		</div>
-	);
-}
-
-const edit = ( { currentUser, className, setAttributes, attributes: { alignment, data } } ) => {
+const edit = ( { currentUser, className, setAttributes, attributes: { alignment, heading, level } } ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
 
-	useEffect( () => {
-		setAttributes( {
-			class_name: className,
-			data: __( 'I am a Preference List!' ),
-		} );
-	}, [] );
-
 	return (
 		<>
-			<D3Canvas className={ className } data={ data } />
+			<div className={ className }>
+				<RichText
+					tagName={ `h${ level }` }
+					className={ `${ className }__heading` }
+					value={ heading }
+					onChange={ ( newValue ) => setAttributes( { heading: newValue } ) }
+					placeholder={ __( 'Preferences' ) }
+					keepPlaceholderOnFocus
+				/>
+
+				<InnerBlocks
+					template={ TEMPLATE }
+					allowedBlocks={ ALLOWED_BLOCKS }
+					renderAppender={ () => <InnerBlocks.ButtonBlockAppender /> }
+				/>
+			</div>
+
 			<BlockControls>
 				<Toolbar
 					controls={ [
@@ -65,9 +56,24 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 						},
 					] }
 				/>
+				<HeadingToolbar
+					minLevel={ 2 }
+					maxLevel={ 5 }
+					selectedLevel={ level }
+					onChange={ ( newLevel ) => setAttributes( { level: newLevel } ) }
+				/>
 			</BlockControls>
+
 			<InspectorControls>
-				<PanelBody title={ 'Preference List Style' }></PanelBody>
+				<PanelBody title={ __( 'Heading Settings' ) }>
+					<HeadingToolbar
+						minLevel={ 2 }
+						maxLevel={ 5 }
+						selectedLevel={ level }
+						onChange={ ( newLevel ) => setAttributes( { level: newLevel } ) }
+					/>
+				</PanelBody>
+				<PanelBody title={ 'Style' }></PanelBody>
 			</InspectorControls>
 		</>
 	);

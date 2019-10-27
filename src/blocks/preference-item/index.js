@@ -12,16 +12,17 @@ import save from './save';
 import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
-	registerBlockType( 'a8c-dataviz/preference-list', {
-		title: __( 'Preference List' ),
-		description: __( 'This is a demo.' ),
+	registerBlockType( 'a8c-dataviz/preference-item', {
+		title: __( 'Preference Item' ),
+		description: __( 'This is a preference item.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		supports: {
 			inserter: true,
+			reusable: false,
 			html: false,
-			align: [ 'wide', 'full' ],
 		},
+		parent: [ 'a8c-dataviz/preference-list' ],
 		styles: [
 			{
 				name: 'horizontal',
@@ -38,13 +39,11 @@ export function registerBlock() {
 				type: 'string',
 				default: 'left',
 			},
-			level: {
-				type: 'number',
-				default: 3,
+			class_name: {
+				type: 'string',
 			},
-			heading: {
-				source: 'html',
-				selector: '.wp-blocks-a8c-dataviz-preference-list__heading',
+			data: {
+				type: 'string',
 			},
 		},
 		edit,

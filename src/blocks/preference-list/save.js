@@ -1,12 +1,18 @@
-export default function save() {
-	return null;
-}
+/**
+ * External dependencies
+ */
+import { RichText, InnerBlocks } from '@wordpress/block-editor';
 
-// export default function save( { attributes } ) {
-// 	return (
-// 		<div>
-// 			<HelloD3 className={ attributes.className } data={ __( 'I am just D3 on the front end.' ) } />
-// 		</div>
-// 	);
-// }
+export default ( { attributes: { level, heading }, className } ) => {
+	return (
+		<div className={ className }>
+			<RichText.Content
+				className={ `${ className }__heading` }
+				tagName={ `h${ level }` }
+				value={ heading }
+			/>
 
+			<InnerBlocks.Content />
+		</div>
+	);
+};
