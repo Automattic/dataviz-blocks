@@ -24,16 +24,16 @@ function D3Canvas( { className, data } ) {
 		<div className={ className }>
 			<svg
 				className={ `${ className }__svg` }
-				height="100"
+				height="30"
 				width="500"
-				viewBox="0 0 500 100"
+				viewBox="0 0 500 30"
 				data={ data }
 			/>
 		</div>
 	);
 }
 
-const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { data, max, barALabel, barAFill, barBLabel, barBFill, color } } ) => {
+const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { data, barALabel, barAFill, barBLabel, barBFill, color } } ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
@@ -41,7 +41,6 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 	function packData() {
 		return JSON.stringify(
 			{
-				max,
 				barAFill,
 				barALabel,
 				barBFill,
@@ -64,7 +63,7 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 		setAttributes( {
 			data: packData(),
 		} );
-	}, [ max, barALabel, barAFill, barBLabel, barBFill, color ] );
+	}, [ barALabel, barAFill, barBLabel, barBFill, color ] );
 
 	function updateNumberAttribute( element ) {
 		setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } )
@@ -77,15 +76,6 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 	function renderControls() {
 		return (
 			<>
-				<label>Max:
-					<input
-						type="number"
-						placeholder={ __( 'Max' ) }
-						name={ 'max' }
-						value={ max }
-						onChange={ updateNumberAttribute }
-					/>
-				</label>
 				<label>Bar A:
 					<input
 						type="number"

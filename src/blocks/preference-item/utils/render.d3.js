@@ -31,6 +31,6 @@ function renderBar( d, i ) {
 		.attr( 'fill', 'black' )
 		.attr( 'y', '20px' )
 		.text( () => {
-			return `${ data.max } ${ i + 1 }`;
+			return `${ data.barAFill } ${ i + 1 }`;
 		} );
 }

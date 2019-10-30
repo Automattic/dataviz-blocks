@@ -45,10 +45,6 @@ export function registerBlock() {
 			data: {
 				type: 'string',
 			},
-			max: {
-				type: 'number',
-				default: 100,
-			},
 			barAFill: {
 				type: 'number',
 				default: 100,
