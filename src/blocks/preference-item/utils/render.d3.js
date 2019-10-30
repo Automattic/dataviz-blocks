@@ -12,16 +12,25 @@ export default function render( ref ) {
 
 	// clear existing content
 	matching.selectAll( '*' ).remove();
-	matching.each( renderText );
+	matching.each( renderBar );
 }
 
-function renderText( d, i ) {
+function renderBar( d, i ) {
 	const svg = d3.select( this );
+
+	let data;
+
+	try {
+		// `data` will contain the right props... [skeptical]
+		data = JSON.parse( svg.attr( 'data' ) );
+	} catch ( error ) {
+		return;
+	}
 
 	svg.append( 'text' )
 		.attr( 'fill', 'black' )
 		.attr( 'y', '20px' )
 		.text( () => {
-			return `${ svg.attr( 'data' ) } ${ i + 1 }`;
+			return `${ data.max } ${ i + 1 }`;
 		} );
 }

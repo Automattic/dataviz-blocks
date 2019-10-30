@@ -45,6 +45,30 @@ export function registerBlock() {
 			data: {
 				type: 'string',
 			},
+			max: {
+				type: 'number',
+				default: 100,
+			},
+			barAFill: {
+				type: 'number',
+				default: 100,
+			},
+			barALabel: {
+				type: 'string',
+				default: 'Bar A',
+			},
+			barBFill: {
+				type: 'number',
+				default: 0,
+			},
+			barBLabel: {
+				type: 'string',
+				default: 'Bar B',
+			},
+			color: {
+				type: 'string',
+				default: 'blue',
+			},
 		},
 		edit,
 		save,

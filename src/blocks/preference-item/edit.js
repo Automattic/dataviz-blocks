@@ -33,21 +33,85 @@ function D3Canvas( { className, data } ) {
 	);
 }
 
-const edit = ( { currentUser, className, setAttributes, attributes: { data } } ) => {
+const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { data, max, barALabel, barAFill, barBLabel, barBFill, color } } ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
 
+	function packData() {
+		return JSON.stringify(
+			{
+				max,
+				barAFill,
+				barALabel,
+				barBFill,
+				barBLabel,
+				color,
+			}
+		);
+	}
+
 	useEffect( () => {
+		// console.log( 123 );
 		setAttributes( {
 			class_name: className,
-			data: __( 'Preference Item' ),
+			data: packData(),
 		} );
 	}, [] );
 
+	useEffect( () => {
+		// console.log( 234 );
+		setAttributes( {
+			data: packData(),
+		} );
+	}, [ max, barALabel, barAFill, barBLabel, barBFill, color ] );
+
+	function updateNumberAttribute( element ) {
+		setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } )
+	}
+
+	function updateAttribute( element ) {
+		setAttributes( { [ element.target.name ]: element.target.value } );
+	}
+
+	function renderControls() {
+		return (
+			<>
+				<label>Max:
+					<input
+						type="number"
+						placeholder={ __( 'Max' ) }
+						name={ 'max' }
+						value={ max }
+						onChange={ updateNumberAttribute }
+					/>
+				</label>
+				<label>Bar A:
+					<input
+						type="number"
+						placeholder={ __( 'Bar A' ) }
+						name={ 'barAFill' }
+						value={ barAFill }
+						onChange={ updateNumberAttribute }
+					/>
+				</label>
+				<label>Bar B:
+					<input
+						type="number"
+						placeholder={ __( 'Bar B' ) }
+						name={ 'barBFill' }
+						value={ barBFill }
+						onChange={ updateNumberAttribute }
+					/>
+				</label>
+			</>
+		);
+	}
+
 	return (
 		<>
-			<D3Canvas className={ className } data={ data } />
+			{ isSelected && renderControls() }
+			{ ! isSelected && <D3Canvas className={ className } data={ data } />}
 			<BlockControls></BlockControls>
 			<InspectorControls>
 				<PanelBody title={ 'Style' }></PanelBody>

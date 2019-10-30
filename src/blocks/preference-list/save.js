@@ -11,7 +11,6 @@ export default ( { attributes: { level, heading }, className } ) => {
 				tagName={ `h${ level }` }
 				value={ heading }
 			/>
-
 			<InnerBlocks.Content />
 		</div>
 	);
