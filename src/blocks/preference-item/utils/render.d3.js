@@ -3,11 +3,16 @@
  */
 import * as d3 from 'd3';
 
+/**
+ * Internal dependencies
+ */
+// import { unpackData } from '../../../utils/data-utils';
+
 export default function render( className ) {
 	const matching = d3.selectAll( `.${ className }` );
 
 	if ( matching.empty() ) {
-		return 123;
+		return;
 	}
 
 	// clear existing content
@@ -22,7 +27,7 @@ function renderBar( d, i ) {
 
 	try {
 		// `data` will contain the right props... [skeptical]
-		data = JSON.parse( svg.attr( 'data' ) );
+		data = JSON.parse( svg.attr( 'chartData' ) );
 	} catch ( error ) {
 		return;
 	}

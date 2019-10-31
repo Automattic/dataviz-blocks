@@ -1,5 +1,5 @@
 /**
- * External dependencies.
+ * External dependencies
  */
 // eslint-disable-next-line wpcalypso/import-docblock
 import { __ } from '@wordpress/i18n';
@@ -9,16 +9,17 @@ import { withSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
 import renderChart from './utils/render.d3';
+// import { packData } from '../../utils/data-utils';
 
-function D3Canvas( { className, data } ) {
+function D3Canvas( { className, chartData } ) {
 	useEffect( () => {
-		if ( data ) {
+		if ( chartData ) {
 			renderChart( className );
 		}
-	}, [ data ] );
+	}, [ chartData ] );
 
 	return (
 		<svg
@@ -26,17 +27,18 @@ function D3Canvas( { className, data } ) {
 			height="30"
 			width="500"
 			viewBox="0 0 500 30"
-			data={ data }
+			chartData={ chartData }
 		/>
 	);
 }
 
-const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { data, label, barALabel, barAFill, barBLabel, barBFill, color } } ) => {
+const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { chartData, label, barALabel, barAFill, barBLabel, barBFill, color } } ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
 
-	function packData() {
+	function packChartData() {
+		// return packData...
 		return JSON.stringify(
 			{
 				barAFill,
@@ -51,13 +53,13 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 	useEffect( () => {
 		setAttributes( {
 			class_name: className,
-			data: packData(),
+			chartData: packChartData(),
 		} );
 	}, [] );
 
 	useEffect( () => {
 		setAttributes( {
-			data: packData(),
+			chartData: packChartData(),
 		} );
 	}, [ barALabel, barAFill, barBLabel, barBFill, color ] );
 
@@ -69,9 +71,9 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 		setAttributes( { [ element.target.name ]: element.target.value } );
 	}
 
-	function renderControls() {
-		return (
-			<>
+	return (
+		<>
+			<div className={ className }>
 				<RichText
 					tagName={ 'p' }
 					className={ `${ className }__label` }
@@ -80,10 +82,10 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 					placeholder={ __( 'Preference' ) }
 				/>
 				{ ! isSelected &&
-					<D3Canvas className={ `${ className }__svg` } data={ data } />
+					<D3Canvas className={ `${ className }__svg` } chartData={ chartData } />
 				}
 				{ isSelected &&
-					<div>
+					<div className={ `${ className }__controls` }>
 						<label>{ __( 'A: ' ) }
 							<input
 								type="number"
@@ -104,13 +106,7 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 						</label>
 					</div>
 				}
-			</>
-		);
-	}
-
-	return (
-		<>
-			<div className={ className }>{ renderControls() }</div>
+			</div>
 			<BlockControls></BlockControls>
 			<InspectorControls>
 				<PanelBody title={ 'Style' }></PanelBody>

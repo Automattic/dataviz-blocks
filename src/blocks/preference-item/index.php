@@ -8,11 +8,11 @@ function render_a8c_dataviz_preference_item( $attributes, $content ) {
 				height="100"
 				width="500"
 				viewBox="0 0 500 100"
-				data="%2$s"
+				chartData="%2$s"
 			/>
 		</div>',
 		$attributes[ 'class_name' ],
-		$attributes[ 'data' ]
+		$attributes[ 'chartData' ]
 	);
 }
 

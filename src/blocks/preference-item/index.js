@@ -42,7 +42,7 @@ export function registerBlock() {
 			class_name: {
 				type: 'string',
 			},
-			data: {
+			chartData: {
 				type: 'string',
 			},
 			label: {
