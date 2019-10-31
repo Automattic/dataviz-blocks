@@ -3,7 +3,7 @@
  */
 // eslint-disable-next-line wpcalypso/import-docblock
 import { __ } from '@wordpress/i18n';
-import { BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { BlockControls, InspectorControls, RichText } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
@@ -16,24 +16,22 @@ import renderChart from './utils/render.d3';
 function D3Canvas( { className, data } ) {
 	useEffect( () => {
 		if ( data ) {
-			renderChart( `.${ className }__svg` );
+			renderChart( className );
 		}
 	}, [ data ] );
 
 	return (
-		<div className={ className }>
-			<svg
-				className={ `${ className }__svg` }
-				height="30"
-				width="500"
-				viewBox="0 0 500 30"
-				data={ data }
-			/>
-		</div>
+		<svg
+			className={ className }
+			height="30"
+			width="500"
+			viewBox="0 0 500 30"
+			data={ data }
+		/>
 	);
 }
 
-const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { data, barALabel, barAFill, barBLabel, barBFill, color } } ) => {
+const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { data, label, barALabel, barAFill, barBLabel, barBFill, color } } ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
@@ -51,7 +49,6 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 	}
 
 	useEffect( () => {
-		// console.log( 123 );
 		setAttributes( {
 			class_name: className,
 			data: packData(),
@@ -59,14 +56,13 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 	}, [] );
 
 	useEffect( () => {
-		// console.log( 234 );
 		setAttributes( {
 			data: packData(),
 		} );
 	}, [ barALabel, barAFill, barBLabel, barBFill, color ] );
 
 	function updateNumberAttribute( element ) {
-		setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } )
+		setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } );
 	}
 
 	function updateAttribute( element ) {
@@ -76,32 +72,45 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 	function renderControls() {
 		return (
 			<>
-				<label>Bar A:
-					<input
-						type="number"
-						placeholder={ __( 'Bar A' ) }
-						name={ 'barAFill' }
-						value={ barAFill }
-						onChange={ updateNumberAttribute }
-					/>
-				</label>
-				<label>Bar B:
-					<input
-						type="number"
-						placeholder={ __( 'Bar B' ) }
-						name={ 'barBFill' }
-						value={ barBFill }
-						onChange={ updateNumberAttribute }
-					/>
-				</label>
+				<RichText
+					tagName={ 'p' }
+					className={ `${ className }__label` }
+					value={ label }
+					onChange={ ( newValue ) => setAttributes( { label: newValue } ) }
+					placeholder={ __( 'Preference' ) }
+				/>
+				{ ! isSelected &&
+					<D3Canvas className={ `${ className }__svg` } data={ data } />
+				}
+				{ isSelected &&
+					<div>
+						<label>{ __( 'A: ' ) }
+							<input
+								type="number"
+								placeholder={ __( 'A' ) }
+								name={ 'barAFill' }
+								value={ barAFill }
+								onChange={ updateNumberAttribute }
+							/>
+						</label>
+						<label>{ __( 'B: ' ) }
+							<input
+								type="number"
+								placeholder={ __( 'B' ) }
+								name={ 'barBFill' }
+								value={ barBFill }
+								onChange={ updateNumberAttribute }
+							/>
+						</label>
+					</div>
+				}
 			</>
 		);
 	}
 
 	return (
 		<>
-			{ isSelected && renderControls() }
-			{ ! isSelected && <D3Canvas className={ className } data={ data } />}
+			<div className={ className }>{ renderControls() }</div>
 			<BlockControls></BlockControls>
 			<InspectorControls>
 				<PanelBody title={ 'Style' }></PanelBody>

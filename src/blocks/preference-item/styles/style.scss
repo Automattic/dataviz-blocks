@@ -3,3 +3,8 @@
 .wp-block-a8c-dataviz-preference-item__svg {
 	color: green;
 }
+
+.wp-block-a8c-dataviz-preference-item {
+	display: flex;
+	flex-direction: column;
+}

@@ -45,6 +45,10 @@ export function registerBlock() {
 			data: {
 				type: 'string',
 			},
+			label: {
+				type: 'string',
+				default: __( 'Preference' ),
+			},
 			barAFill: {
 				type: 'number',
 				default: 100,
