@@ -50,11 +50,17 @@ Install the build scripts with:
 
 `yarn install`
 
-Run the development build with watchers:
+Run the development build with JS/SCSS watchers:
 
 `yarn start`
 
+^ In case the SCSS files do not get properly watched/updated, then run `yarn watch:js` and `yarn watch:css` separately, and all should be good. I have noticed a conflict with wp-scripts and node-sass on my end with only one of them (the first in the order) succeeding -- something to look into later).
+
 ### Production
+
+Install the build scripts (if haven't done already):
+
+`yarn install`
 
 Build the production files with:
 
