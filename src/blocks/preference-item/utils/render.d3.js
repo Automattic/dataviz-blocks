@@ -27,7 +27,7 @@ function renderBar( d, i ) {
 
 	try {
 		// `data` will contain the right props... [skeptical]
-		data = JSON.parse( svg.attr( 'chartData' ) );
+		data = JSON.parse( svg.attr( 'data' ) );
 	} catch ( error ) {
 		return;
 	}

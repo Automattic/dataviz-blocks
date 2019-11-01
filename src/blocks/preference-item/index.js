@@ -47,21 +47,20 @@ export function registerBlock() {
 			},
 			label: {
 				type: 'string',
-				default: __( 'Preference' ),
 			},
 			barAFill: {
 				type: 'number',
 				default: 100,
 			},
-			barALabel: {
+			barADescription: {
 				type: 'string',
 				default: 'Bar A',
 			},
 			barBFill: {
 				type: 'number',
-				default: 0,
+				default: 50,
 			},
-			barBLabel: {
+			barBDescription: {
 				type: 'string',
 				default: 'Bar B',
 			},

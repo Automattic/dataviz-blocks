@@ -1,0 +1,13 @@
+/* Front end styles */
+.wp-block-a8c-dataviz-preference-item__svg {
+  width: 100%;
+  height: 30px; }
+
+.wp-block-a8c-dataviz-preference-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between; }
+
+.wp-block-a8c-dataviz-preference-item__label {
+  margin-right: 5px; }

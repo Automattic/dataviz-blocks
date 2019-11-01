@@ -3,8 +3,8 @@
  */
 // eslint-disable-next-line wpcalypso/import-docblock
 import { __ } from '@wordpress/i18n';
-import { BlockControls, InspectorControls, RichText } from '@wordpress/block-editor';
-import { PanelBody } from '@wordpress/components';
+import { BlockControls, InspectorControls, RichText, PanelColorSettings } from '@wordpress/block-editor';
+import { PanelBody, TextControl } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 
@@ -24,15 +24,13 @@ function D3Canvas( { className, chartData } ) {
 	return (
 		<svg
 			className={ className }
-			height="30"
-			width="500"
-			viewBox="0 0 500 30"
-			chartData={ chartData }
+			viewBox="0 0 100 100"
+			data={ chartData }
 		/>
 	);
 }
 
-const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { chartData, label, barALabel, barAFill, barBLabel, barBFill, color } } ) => {
+const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { chartData, label, barADescription, barAFill, barBDescription, barBFill, color } } ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
@@ -42,9 +40,9 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 		return JSON.stringify(
 			{
 				barAFill,
-				barALabel,
+				barADescription,
 				barBFill,
-				barBLabel,
+				barBDescription,
 				color,
 			}
 		);
@@ -61,55 +59,77 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 		setAttributes( {
 			chartData: packChartData(),
 		} );
-	}, [ barALabel, barAFill, barBLabel, barBFill, color ] );
+	}, [ barADescription, barAFill, barBDescription, barBFill, color ] );
 
-	function updateNumberAttribute( element ) {
-		setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } );
-	}
+	// function updateNumberAttribute( element ) {
+	// 	setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } );
+	// }
 
-	function updateAttribute( element ) {
-		setAttributes( { [ element.target.name ]: element.target.value } );
-	}
+	// function updateAttribute( element ) {
+	// 	setAttributes( { [ element.target.name ]: element.target.value } );
+	// }
 
 	return (
 		<>
 			<div className={ className }>
 				<RichText
-					tagName={ 'p' }
+					tagName={ 'div' }
 					className={ `${ className }__label` }
 					value={ label }
 					onChange={ ( newValue ) => setAttributes( { label: newValue } ) }
 					placeholder={ __( 'Preference' ) }
+					keepPlaceholderOnFocus
 				/>
 				{ ! isSelected &&
 					<D3Canvas className={ `${ className }__svg` } chartData={ chartData } />
 				}
 				{ isSelected &&
 					<div className={ `${ className }__controls` }>
-						<label>{ __( 'A: ' ) }
-							<input
-								type="number"
-								placeholder={ __( 'A' ) }
-								name={ 'barAFill' }
-								value={ barAFill }
-								onChange={ updateNumberAttribute }
-							/>
-						</label>
-						<label>{ __( 'B: ' ) }
-							<input
-								type="number"
-								placeholder={ __( 'B' ) }
-								name={ 'barBFill' }
-								value={ barBFill }
-								onChange={ updateNumberAttribute }
-							/>
-						</label>
+						<TextControl
+							type="number"
+							label={ __( 'A' ) }
+							value={ barAFill }
+							onChange={ ( value ) => setAttributes( { barAFill: value } ) }
+						/>
+						<TextControl
+							type="number"
+							label={ __( 'B' ) }
+							value={ barBFill }
+							onChange={ ( value ) => setAttributes( { barBFill: value } ) }
+						/>
 					</div>
 				}
 			</div>
 			<BlockControls></BlockControls>
 			<InspectorControls>
-				<PanelBody title={ 'Style' }></PanelBody>
+				<PanelBody title={ 'Label Settings' } initialOpen={ false }>
+					<div className={ `${ className }__label-settings` }>
+						<TextControl
+							type="text"
+							label={ __( 'Bar A Description' ) }
+							value={ barADescription }
+							onChange={ ( value ) => setAttributes( { barADescription: value } ) }
+						/>
+						<TextControl
+							type="text"
+							label={ __( 'Bar B Description' ) }
+							value={ barBDescription }
+							onChange={ ( value ) => setAttributes( { barBDescription: value } ) }
+						/>
+					</div>
+				</PanelBody>
+				<PanelColorSettings
+					title={ __( 'Color Settings' ) }
+					initialOpen
+					colorSettings={ [
+						{
+							value: color,
+							onChange: ( barColor ) => setAttributes( { color: barColor } ),
+							label: __( 'Bar Color' ),
+						},
+					] }
+				>
+				</PanelColorSettings>
 			</InspectorControls>
 		</>
 	);

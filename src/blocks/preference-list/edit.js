@@ -73,7 +73,6 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 						onChange={ ( newLevel ) => setAttributes( { level: newLevel } ) }
 					/>
 				</PanelBody>
-				<PanelBody title={ 'Style' }></PanelBody>
 			</InspectorControls>
 		</>
 	);

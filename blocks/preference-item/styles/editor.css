@@ -1,22 +1,17 @@
 /* editor styles */
-
 .wp-block-a8c-dataviz-preference-item__svg {
-	width: 100%;
-	height: 30px;
-}
+  width: 100%;
+  height: 30px; }
 
 .wp-block-a8c-dataviz-preference-item {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between; }
 
 .wp-block-a8c-dataviz-preference-item__label {
-	margin-right: 5px; // minimum
-}
+  margin-right: 5px; }
 
 .wp-block-a8c-dataviz-preference-item__controls {
-	display: flex;
-	flex-direction: row;
-}
+  display: flex;
+  flex-direction: row; }
