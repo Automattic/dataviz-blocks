@@ -54,8 +54,6 @@ Run the development build with JS/SASS watchers:
 
 `yarn start`
 
-^ In case the SASS files do not get properly watched/updated, then run `yarn watch:js` and `yarn watch:sass` separately, and all should be good. I have noticed a conflict with wp-scripts and node-sass on my end with only one of them (the first in the order) succeeding -- something for later.
-
 ### Production
 
 Install the build scripts (if haven't done already):
