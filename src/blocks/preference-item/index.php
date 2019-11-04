@@ -2,12 +2,8 @@
 
 function render_a8c_dataviz_preference_item( $attributes, $content ) {
 	return sprintf(
-		'<div>
-			<svg
-				class="%1$s__svg"
-				viewBox="0 0 100 100"
-				data="%2$s"
-			/>
+		'<div class="%1$s__canvas">
+			<svg data="%2$s" />
 		</div>',
 		$attributes[ 'class_name' ],
 		$attributes[ 'chartData' ]

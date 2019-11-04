@@ -6,68 +6,74 @@ import { __ } from '@wordpress/i18n';
 import { BlockControls, InspectorControls, RichText, PanelColorSettings } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect, createRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import renderChart from './utils/render.d3';
-// import { packData } from '../../utils/data-utils';
+import { packChartData } from './utils/data-utils';
 
 function D3Canvas( { className, chartData } ) {
+	const ref = createRef();
+
 	useEffect( () => {
 		if ( chartData ) {
-			renderChart( className );
+			renderChart( ref.current );
 		}
 	}, [ chartData ] );
 
 	return (
-		<svg
-			className={ className }
-			viewBox="0 0 100 100"
-			data={ chartData }
-		/>
+		<div className={ className }>
+			<svg ref={ ref } data={ chartData } />
+		</div>
 	);
 }
 
-const edit = ( { currentUser, className, setAttributes, isSelected, attributes: { chartData, label, barADescription, barAFill, barBDescription, barBFill, color } } ) => {
+const edit = ( {
+	currentUser,
+	className,
+	setAttributes,
+	isSelected,
+	attributes: {
+		chartData,
+		label,
+		barA,
+		barB,
+		color,
+	},
+} ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
 
-	function packChartData() {
-		// return packData...
-		return JSON.stringify(
-			{
-				barAFill,
-				barADescription,
-				barBFill,
-				barBDescription,
-				color,
-			}
+	function packData() {
+		return packChartData(
+			[
+				{
+					...barA,
+					color,
+				},
+				{
+					...barB,
+					color,
+				},
+			]
 		);
 	}
 
 	useEffect( () => {
 		setAttributes( {
 			class_name: className,
-			chartData: packChartData(),
+			chartData: packData(),
 		} );
 	}, [] );
 
 	useEffect( () => {
 		setAttributes( {
-			chartData: packChartData(),
+			chartData: packData(),
 		} );
-	}, [ barADescription, barAFill, barBDescription, barBFill, color ] );
-
-	// function updateNumberAttribute( element ) {
-	// 	setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } );
-	// }
-
-	// function updateAttribute( element ) {
-	// 	setAttributes( { [ element.target.name ]: element.target.value } );
-	// }
+	}, [ barA, barB, color ] );
 
 	return (
 		<>
@@ -81,21 +87,21 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 					keepPlaceholderOnFocus
 				/>
 				{ ! isSelected &&
-					<D3Canvas className={ `${ className }__svg` } chartData={ chartData } />
+					<D3Canvas className={ `${ className }__canvas` } chartData={ chartData } />
 				}
 				{ isSelected &&
 					<div className={ `${ className }__controls` }>
 						<TextControl
 							type="number"
 							label={ __( 'A' ) }
-							value={ barAFill }
-							onChange={ ( value ) => setAttributes( { barAFill: value } ) }
+							value={ barA.fill }
+							onChange={ ( value ) => setAttributes( { barA: { ...barA, fill: value } } ) }
 						/>
 						<TextControl
 							type="number"
 							label={ __( 'B' ) }
-							value={ barBFill }
-							onChange={ ( value ) => setAttributes( { barBFill: value } ) }
+							value={ barB.fill }
+							onChange={ ( value ) => setAttributes( { barB: { ...barB, fill: value } } ) }
 						/>
 					</div>
 				}
@@ -107,14 +113,14 @@ const edit = ( { currentUser, className, setAttributes, isSelected, attributes: 
 						<TextControl
 							type="text"
 							label={ __( 'Bar A Description' ) }
-							value={ barADescription }
-							onChange={ ( value ) => setAttributes( { barADescription: value } ) }
+							value={ barA.description }
+							onChange={ ( value ) => setAttributes( { barA: { ...barA, description: value } } ) }
 						/>
 						<TextControl
 							type="text"
 							label={ __( 'Bar B Description' ) }
-							value={ barBDescription }
-							onChange={ ( value ) => setAttributes( { barBDescription: value } ) }
+							value={ barB.description }
+							onChange={ ( value ) => setAttributes( { barB: { ...barB, description: value } } ) }
 						/>
 					</div>
 				</PanelBody>
@@ -140,3 +146,11 @@ export default withSelect( ( select ) => {
 		currentUser: select( 'core' ).getCurrentUser(),
 	};
 } )( edit );
+
+	// function updateNumberAttribute( element ) {
+	// 	setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } );
+	// }
+
+	// function updateAttribute( element ) {
+	// 	setAttributes( { [ element.target.name ]: element.target.value } );
+	// }

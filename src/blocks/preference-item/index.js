@@ -48,25 +48,23 @@ export function registerBlock() {
 			label: {
 				type: 'string',
 			},
-			barAFill: {
-				type: 'number',
-				default: 100,
+			barA: {
+				type: 'object',
+				default: {
+					fill: 100,
+					description: 'Bar A',
+				},
 			},
-			barADescription: {
-				type: 'string',
-				default: 'Bar A',
-			},
-			barBFill: {
-				type: 'number',
-				default: 50,
-			},
-			barBDescription: {
-				type: 'string',
-				default: 'Bar B',
+			barB: {
+				type: 'object',
+				default: {
+					fill: 100,
+					description: 'Bar B',
+				},
 			},
 			color: {
 				type: 'string',
-				default: 'blue',
+				default: 'rgb(205, 38, 83)',
 			},
 		},
 		edit,

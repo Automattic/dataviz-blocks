@@ -6,36 +6,53 @@ import * as d3 from 'd3';
 /**
  * Internal dependencies
  */
-// import { unpackData } from '../../../utils/data-utils';
+import { unpackChartData } from './data-utils';
 
-export default function render( className ) {
-	const matching = d3.selectAll( `.${ className }` );
+export default function render( ref ) {
+	let matching;
+
+	if ( typeof ref === 'string' ) {
+		matching = d3.selectAll( ref );
+	} else {
+		matching = d3.select( ref );
+	}
 
 	if ( matching.empty() ) {
 		return;
 	}
 
+	console.log( '---> in render.d3' );
+
 	// clear existing content
 	matching.selectAll( '*' ).remove();
-	matching.each( renderBar );
+	matching.each( renderChart );
 }
 
-function renderBar( d, i ) {
+function renderChart() {
 	const svg = d3.select( this );
+	// @todo: clk: `data` will contain the right props... [skeptical]
+	const data = unpackChartData( svg.attr( 'data' ) );
 
-	let data;
+	renderBars( svg, data );
+}
 
-	try {
-		// `data` will contain the right props... [skeptical]
-		data = JSON.parse( svg.attr( 'data' ) );
-	} catch ( error ) {
-		return;
-	}
+function renderBars( svg, data ) {
+	// @todo: clk: make sure bars retain their color despite page background
 
-	svg.append( 'text' )
-		.attr( 'fill', 'black' )
-		.attr( 'y', '20px' )
-		.text( () => {
-			return `${ data.barAFill } ${ i + 1 }`;
-		} );
+	console.log( '---> in render.d3 (renderBars)' );
+
+	const rects = svg
+		.append( 'g' )
+		.selectAll( 'g' )
+		.data( data )
+		.enter()
+		.append( 'rect' );
+
+	rects
+		.attr( 'y', 0 )
+		.attr( 'x', 0 )
+		.attr( 'width', d => `${ d.fill }%` )
+		.attr( 'height', '100%' )
+		.style( 'fill', d => d.color )
+		.style( 'opacity', ( d, i ) => i && 0.5 || 1 );
 }
