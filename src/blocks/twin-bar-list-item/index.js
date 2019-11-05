@@ -13,7 +13,7 @@ import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
 	registerBlockType( 'a8c-dataviz/twin-bar-list-item', {
-		title: __( 'Item' ),
+		title: __( 'Twin-bar List Item' ),
 		description: __( 'A stacked-bars list item.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
