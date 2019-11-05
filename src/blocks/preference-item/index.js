@@ -13,8 +13,8 @@ import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
 	registerBlockType( 'a8c-dataviz/preference-item', {
-		title: __( 'Preference Item' ),
-		description: __( 'This is a preference item.' ),
+		title: __( 'List item' ),
+		description: __( 'This is a stacked-bar list item.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		supports: {
@@ -52,14 +52,14 @@ export function registerBlock() {
 				type: 'object',
 				default: {
 					fill: 100,
-					description: 'Bar A',
+					description: 'Bar A description',
 				},
 			},
 			barB: {
 				type: 'object',
 				default: {
 					fill: 100,
-					description: 'Bar B',
+					description: 'Bar B description',
 				},
 			},
 			color: {

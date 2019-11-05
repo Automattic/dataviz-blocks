@@ -5,11 +5,12 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	margin-bottom: 20px; // frontend only
 }
 
 .wp-block-a8c-dataviz-preference-item__canvas,
 .wp-block-a8c-dataviz-preference-item__controls {
-	flex-basis: 60%;
+	width: 60%;
 }
 
 .wp-block-a8c-dataviz-preference-item__canvas {
@@ -23,7 +24,7 @@
 }
 
 .wp-block-a8c-dataviz-preference-item__label {
-	flex-basis: 40%;
+	width: 40%;
 	padding-right: 5px; // minimum space
 
 }

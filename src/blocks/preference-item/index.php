@@ -7,10 +7,14 @@ function render_a8c_dataviz_preference_item( $attributes, $content ) {
 	}
 
 	return sprintf(
-		'<div class="%1$s__canvas">
-			<svg data="%2$s" />
+		'<div class="%1$s">
+			<div class="%1$s__label">%2$s</div>
+			<div class="%1$s__canvas">
+				<svg data="%3$s" />
+			</div>
 		</div>',
 		$attributes[ 'class_name' ],
+		isset( $attributes[ 'label'] ) ? $attributes[ 'label'] : '',
 		$attributes[ 'chartData' ]
 	);
 }

@@ -2,10 +2,13 @@
  * External dependencies
  */
 import { RichText, InnerBlocks } from '@wordpress/block-editor';
+import { getBlockDefaultClassName } from '@wordpress/blocks';
 
-export default ( { attributes: { level, heading }, className } ) => {
+export default ( { attributes: { level, heading } } ) => {
+	const className = getBlockDefaultClassName( 'a8c-dataviz/preference-list' );
+
 	return (
-		<div className={ className }>
+		<div>
 			<RichText.Content
 				className={ `${ className }__heading` }
 				tagName={ `h${ level }` }

@@ -68,7 +68,7 @@ const edit = ( {
 					className={ `${ className }__label` }
 					value={ label }
 					onChange={ ( newValue ) => setAttributes( { label: newValue } ) }
-					placeholder={ __( 'Preference' ) }
+					placeholder={ __( 'Label' ) }
 					keepPlaceholderOnFocus
 				/>
 				{ ! isSelected &&

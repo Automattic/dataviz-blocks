@@ -28,7 +28,7 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 					className={ `${ className }__heading` }
 					value={ heading }
 					onChange={ ( newValue ) => setAttributes( { heading: newValue } ) }
-					placeholder={ __( 'Preferences' ) }
+					placeholder={ __( 'Title' ) }
 					keepPlaceholderOnFocus
 				/>
 
@@ -40,7 +40,7 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 			</div>
 
 			<BlockControls>
-				<Toolbar
+				{/* <Toolbar
 					controls={ [
 						{
 							icon: 'align-pull-left',
@@ -55,7 +55,7 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 							onClick: () => setAttributes( { alignment: 'right' } ),
 						},
 					] }
-				/>
+				/> */}
 				<HeadingToolbar
 					minLevel={ 2 }
 					maxLevel={ 5 }

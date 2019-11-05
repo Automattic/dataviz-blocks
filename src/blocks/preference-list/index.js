@@ -13,8 +13,8 @@ import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
 	registerBlockType( 'a8c-dataviz/preference-list', {
-		title: __( 'Preference List' ),
-		description: __( 'This is a demo.' ),
+		title: __( 'Simple Stacked-Bar List' ),
+		description: __( 'Simple stacked barchart for producing lists with labels and bars.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		supports: {
