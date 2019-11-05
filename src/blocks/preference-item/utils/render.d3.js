@@ -6,7 +6,7 @@ import * as d3 from 'd3';
 /**
  * Internal dependencies
  */
-import { unpackChartData } from './data-utils';
+import { unpackChartData } from '../../../utils/data-utils';
 
 export default function render( ref ) {
 	let matching;

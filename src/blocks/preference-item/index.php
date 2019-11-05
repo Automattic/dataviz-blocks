@@ -1,6 +1,11 @@
 <?php
 
 function render_a8c_dataviz_preference_item( $attributes, $content ) {
+	// enqueue frontend JS scripts here
+	if ( ! is_admin() ) {
+		wp_enqueue_script( 'dataviz-frontend' );
+	}
+
 	return sprintf(
 		'<div class="%1$s__canvas">
 			<svg data="%2$s" />

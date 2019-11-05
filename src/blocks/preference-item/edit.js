@@ -6,29 +6,14 @@ import { __ } from '@wordpress/i18n';
 import { BlockControls, InspectorControls, RichText, PanelColorSettings } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
-import { useEffect, createRef } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import renderChart from './utils/render.d3';
-import { packChartData } from './utils/data-utils';
-
-function D3Canvas( { className, chartData } ) {
-	const ref = createRef();
-
-	useEffect( () => {
-		if ( chartData ) {
-			renderChart( ref.current );
-		}
-	}, [ chartData ] );
-
-	return (
-		<div className={ className }>
-			<svg ref={ ref } data={ chartData } />
-		</div>
-	);
-}
+import { packChartData } from '../../utils/data-utils';
+import D3Canvas from '../../components/d3-canvas';
 
 const edit = ( {
 	currentUser,
@@ -87,7 +72,7 @@ const edit = ( {
 					keepPlaceholderOnFocus
 				/>
 				{ ! isSelected &&
-					<D3Canvas className={ `${ className }__canvas` } chartData={ chartData } />
+					<D3Canvas className={ `${ className }__canvas` } chartData={ chartData } chartRenderer={ renderChart } />
 				}
 				{ isSelected &&
 					<div className={ `${ className }__controls` }>
