@@ -20,7 +20,7 @@ function render_a8c_dataviz_preference_item( $attributes, $content ) {
 }
 
 function register_a8c_dataviz_preference_item() {
-	register_block_type( 'a8c-dataviz/preference-item', [
+	register_block_type( 'a8c-dataviz/twin-bar-list-item', [
 		'editor_script' => 'dataviz-blocks',
 		'style' => 'dataviz-blocks',
 		'editor_style' => 'dataviz-blocks-editor',

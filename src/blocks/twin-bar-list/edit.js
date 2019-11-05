@@ -12,8 +12,8 @@ import { withSelect } from '@wordpress/data';
  */
 import HeadingToolbar from '../../components/heading-toolbar';
 
-const ALLOWED_BLOCKS = [ 'a8c-dataviz/preference-item' ];
-const TEMPLATE = [ [ 'a8c-dataviz/preference-item' ] ];
+const ALLOWED_BLOCKS = [ 'a8c-dataviz/twin-bar-list-item' ];
+const TEMPLATE = [ [ 'a8c-dataviz/twin-bar-list-item' ] ];
 
 const edit = ( { currentUser, className, setAttributes, attributes: { alignment, heading, level } } ) => {
 	if ( currentUser.name === undefined ) {
@@ -40,7 +40,7 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 			</div>
 
 			<BlockControls>
-				{/* <Toolbar
+				<Toolbar
 					controls={ [
 						{
 							icon: 'align-pull-left',
@@ -55,7 +55,7 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 							onClick: () => setAttributes( { alignment: 'right' } ),
 						},
 					] }
-				/> */}
+				/>
 				<HeadingToolbar
 					minLevel={ 2 }
 					maxLevel={ 5 }

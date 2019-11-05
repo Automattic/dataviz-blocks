@@ -5,7 +5,7 @@ import { RichText, InnerBlocks } from '@wordpress/block-editor';
 import { getBlockDefaultClassName } from '@wordpress/blocks';
 
 export default ( { attributes: { level, heading } } ) => {
-	const className = getBlockDefaultClassName( 'a8c-dataviz/preference-list' );
+	const className = getBlockDefaultClassName( 'a8c-dataviz/twin-bar-list' );
 
 	return (
 		<div>

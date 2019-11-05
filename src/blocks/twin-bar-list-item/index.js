@@ -12,9 +12,9 @@ import save from './save';
 import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
-	registerBlockType( 'a8c-dataviz/preference-item', {
-		title: __( 'List item' ),
-		description: __( 'This is a stacked-bar list item.' ),
+	registerBlockType( 'a8c-dataviz/twin-bar-list-item', {
+		title: __( 'Item' ),
+		description: __( 'A stacked-bars list item.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		supports: {
@@ -22,7 +22,7 @@ export function registerBlock() {
 			reusable: false,
 			html: false,
 		},
-		parent: [ 'a8c-dataviz/preference-list' ],
+		parent: [ 'a8c-dataviz/twin-bar-list' ],
 		styles: [
 			{
 				name: 'horizontal',

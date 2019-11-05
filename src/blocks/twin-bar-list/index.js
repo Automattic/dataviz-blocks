@@ -12,9 +12,9 @@ import save from './save';
 import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
-	registerBlockType( 'a8c-dataviz/preference-list', {
-		title: __( 'Simple Stacked-Bar List' ),
-		description: __( 'Simple stacked barchart for producing lists with labels and bars.' ),
+	registerBlockType( 'a8c-dataviz/twin-bar-list', {
+		title: __( 'Twin-Bar List' ),
+		description: __( 'A simple stacked-bars list.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		supports: {
@@ -44,7 +44,7 @@ export function registerBlock() {
 			},
 			heading: {
 				source: 'html',
-				selector: '.wp-blocks-a8c-dataviz-preference-list__heading',
+				selector: '.wp-blocks-a8c-dataviz-twin-bar-list__heading',
 			},
 		},
 		edit,
