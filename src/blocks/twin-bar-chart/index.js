@@ -12,27 +12,16 @@ import save from './save';
 import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
-	registerBlockType( 'a8c-dataviz/twin-bar-list', {
-		title: __( 'Twin-Bars' ),
-		description: __( 'A simple stacked-bars list.' ),
+	registerBlockType( 'a8c-dataviz/twin-bar-chart', {
+		title: __( 'Twin-Bars Canvas' ),
+		description: __( 'The twin-bar chart canvas.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		supports: {
-			inserter: true,
-			html: false,
-			align: [ 'wide', 'full' ],
+			inserter: false,
 		},
-		styles: [
-			{
-				name: 'horizontal',
-				label: 'Horizontal',
-				isDefault: true,
-			},
-			{
-				name: 'vertical',
-				label: 'Vertical',
-			},
-		],
+		parent: [ 'a8c-dataviz/twin-bar-list' ],
+		styles: [],
 		attributes: {
 			chartSettings: {
 				type: 'object',
@@ -53,18 +42,6 @@ export function registerBlock() {
 			},
 			chartData: {
 				type: 'string',
-			},
-			level: {
-				type: 'number',
-				default: 3,
-			},
-			heading: {
-				source: 'html',
-				selector: '.wp-blocks-a8c-dataviz-twin-bar-list__heading',
-			},
-			subheading: {
-				source: 'html',
-				selector: '.wp-blocks-a8c-dataviz-twin-bar-list__subheading',
 			},
 		},
 		edit,

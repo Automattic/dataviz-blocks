@@ -1,10 +1,14 @@
+export default function save() {
+	return null;
+}
+
 /**
  * External dependencies
  */
 import { RichText, InnerBlocks } from '@wordpress/block-editor';
 import { getBlockDefaultClassName } from '@wordpress/blocks';
 
-const save = ( { attributes: { level, heading, subheading } } ) => {
+const foo = ( { attributes: { level, heading, subheading } } ) => {
 	const className = getBlockDefaultClassName( 'a8c-dataviz/twin-bar-list' );
 
 	return (
@@ -23,5 +27,3 @@ const save = ( { attributes: { level, heading, subheading } } ) => {
 		</div>
 	);
 };
-
-export default save;

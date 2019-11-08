@@ -17,10 +17,12 @@ setCategories( [
  */
 import * as demoD3 from './blocks/demo-d3';
 import * as twinBarList from './blocks/twin-bar-list';
+import * as twinBarChart from './blocks/twin-bar-chart';
 import * as twinBarListItem from './blocks/twin-bar-list-item';
 
 // Instantiate the blocks, adding them to our block category
 // TODO: improve this
 demoD3.registerBlock();
 twinBarList.registerBlock();
+twinBarChart.registerBlock();
 twinBarListItem.registerBlock();

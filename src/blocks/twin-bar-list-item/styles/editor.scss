@@ -4,17 +4,12 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
-}
-
-.wp-block-a8c-dataviz-twin-bar-list-item__canvas,
-.wp-block-a8c-dataviz-twin-bar-list-item__controls {
-	width: 60%;
+    justify-content: center;
 }
 
 .wp-block-a8c-dataviz-twin-bar-list-item {
 	> .block-editor-rich-text {
-		width: 40%;
+		width: 20%;
 	}
 }
 
@@ -22,16 +17,6 @@
 	width: 100%;
 	padding-right: 5px; // minimum space
 
-}
-
-.wp-block-a8c-dataviz-twin-bar-list-item__canvas {
-	display: flex;
-	align-items: center;
-
-	svg {
-		width: 100%;
-		height: 50px;
-	}
 }
 
 .wp-block-a8c-dataviz-twin-bar-list-item__controls {

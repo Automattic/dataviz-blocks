@@ -1,35 +1,35 @@
 /* Front end styles */
 
-.wp-block-a8c-dataviz-twin-bar-list-item {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 20px; // frontend only
-}
+// .wp-block-a8c-dataviz-twin-bar-list-item {
+// 	display: flex;
+// 	flex-direction: row;
+// 	align-items: center;
+// 	justify-content: space-between;
+// 	margin-bottom: 20px; // frontend only
+// }
 
-.wp-block-a8c-dataviz-twin-bar-list-item__canvas,
-.wp-block-a8c-dataviz-twin-bar-list-item__controls {
-	width: 60%;
-}
+// .wp-block-a8c-dataviz-twin-bar-list-item__canvas,
+// .wp-block-a8c-dataviz-twin-bar-list-item__controls {
+// 	width: 60%;
+// }
 
-.wp-block-a8c-dataviz-twin-bar-list-item__canvas {
-	display: flex;
-	align-items: center;
+// .wp-block-a8c-dataviz-twin-bar-list-item__canvas {
+// 	display: flex;
+// 	align-items: center;
 
-	svg {
-		width: 100%;
-		height: 50px;
-	}
-}
+// 	svg {
+// 		width: 100%;
+// 		height: 50px;
+// 	}
+// }
 
-.wp-block-a8c-dataviz-twin-bar-list-item__label {
-	width: 40%;
-	padding-right: 5px; // minimum space
+// .wp-block-a8c-dataviz-twin-bar-list-item__label {
+// 	width: 40%;
+// 	padding-right: 5px; // minimum space
 
-}
+// }
 
-.wp-block-a8c-dataviz-twin-bar-list-item__controls {
-	display: flex;
-	flex-direction: row;
-}
+// .wp-block-a8c-dataviz-twin-bar-list-item__controls {
+// 	display: flex;
+// 	flex-direction: row;
+// }

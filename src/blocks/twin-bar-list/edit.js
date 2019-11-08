@@ -3,22 +3,33 @@
  */
 // eslint-disable-next-line wpcalypso/import-docblock
 import { __ } from '@wordpress/i18n';
-import { BlockControls, InspectorControls, RichText, InnerBlocks } from '@wordpress/block-editor';
-import { Toolbar, PanelBody } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
+import { BlockControls, InspectorControls, RichText, InnerBlocks, PanelColorSettings } from '@wordpress/block-editor';
+import { Toolbar, PanelBody, RangeControl, TextControl } from '@wordpress/components';
+import { withSelect, withDispatch } from '@wordpress/data';
+import { isEmpty } from 'lodash';
+import { useEffect } from '@wordpress/element';
+import { compose } from '@wordpress/compose';
 
 /**
  * Internal dependencies.
  */
 import HeadingToolbar from '../../components/heading-toolbar';
 
-const ALLOWED_BLOCKS = [ 'a8c-dataviz/twin-bar-list-item' ];
-const TEMPLATE = [ [ 'a8c-dataviz/twin-bar-list-item' ] ];
+const ALLOWED_BLOCKS = [ 'a8c-dataviz/twin-bar-chart' ];
+const TEMPLATE = [ [ 'a8c-dataviz/twin-bar-chart' ] ];
 
-const edit = ( { currentUser, className, setAttributes, attributes: { alignment, heading, level } } ) => {
+const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttributes, attributes: { defaultColors, chartSettings, chartData, heading, level, subheading } } ) => {
 	if ( currentUser.name === undefined ) {
 		return null;
 	}
+
+	useEffect( () => {
+		updateInnerBlocksAttribute( { chartSettings } );
+	}, [ chartSettings ] );
+
+	useEffect( () => {
+		updateInnerBlocksAttribute( { defaultColors } );
+	}, [ defaultColors ] );
 
 	return (
 		<>
@@ -28,14 +39,21 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 					className={ `${ className }__heading` }
 					value={ heading }
 					onChange={ ( newValue ) => setAttributes( { heading: newValue } ) }
-					placeholder={ __( 'Title' ) }
+					placeholder={ __( 'Heading' ) }
 					keepPlaceholderOnFocus
 				/>
-
+				<RichText
+					tagName={ 'div' }
+					className={ `${ className }__subheading` }
+					value={ subheading }
+					onChange={ ( newValue ) => setAttributes( { subheading: newValue } ) }
+					placeholder={ __( 'Sub Heading' ) }
+					keepPlaceholderOnFocus
+					multiline={ false }
+				/>
 				<InnerBlocks
-					template={ TEMPLATE }
 					allowedBlocks={ ALLOWED_BLOCKS }
-					renderAppender={ () => <InnerBlocks.ButtonBlockAppender /> }
+					template={ TEMPLATE }
 				/>
 			</div>
 
@@ -43,25 +61,25 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 				<Toolbar
 					controls={ [
 						{
-							icon: 'align-pull-left',
-							title: __( 'Align left' ),
-							isActive: alignment === 'left',
-							onClick: () => setAttributes( { alignment: 'left' } ),
+							icon: 'editor-justify',
+							title: __( 'Split at zero' ),
+							isActive: chartSettings.order === 'split',
+							onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'split' } } ),
 						},
 						{
-							icon: 'align-pull-right',
-							title: __( 'Align right' ),
-							isActive: alignment === 'right',
-							onClick: () => setAttributes( { alignment: 'right' } ),
+							icon: 'editor-alignleft',
+							title: __( 'Stacked bars' ),
+							isActive: chartSettings.order === 'stacked',
+							onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'stacked' } } ),
 						},
 					] }
 				/>
-				<HeadingToolbar
+				{/* <HeadingToolbar
 					minLevel={ 2 }
 					maxLevel={ 5 }
 					selectedLevel={ level }
 					onChange={ ( newLevel ) => setAttributes( { level: newLevel } ) }
-				/>
+				/> */}
 			</BlockControls>
 
 			<InspectorControls>
@@ -73,13 +91,99 @@ const edit = ( { currentUser, className, setAttributes, attributes: { alignment,
 						onChange={ ( newLevel ) => setAttributes( { level: newLevel } ) }
 					/>
 				</PanelBody>
+				<PanelBody title={ __( 'Chart Settings' ) }>
+					<Toolbar
+						controls={ [
+							{
+								icon: 'editor-justify',
+								title: __( 'Split at zero' ),
+								isActive: chartSettings.order === 'split',
+								onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'split' } } ),
+							},
+							{
+								icon: 'editor-alignleft',
+								title: __( 'Stacked bars' ),
+								isActive: chartSettings.order === 'stacked',
+								onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'stacked' } } ),
+							},
+						] }
+					/>
+					<RangeControl
+						label={ __( 'Label width (%)' ) }
+						value={ chartSettings.labelWidth }
+						onChange={ value => {
+							setAttributes( { chartSettings: { ...chartSettings, labelWidth: value } } );
+						} }
+						min={ 1 }
+						max={ 50 }
+					/>
+					<RangeControl
+						label={ __( 'Space between bars (px)' ) }
+						value={ chartSettings.spaceBetween }
+						onChange={ value => {
+							setAttributes( { chartSettings: { ...chartSettings, spaceBetween: value } } );
+						} }
+						min={ 1 }
+						max={ 100 }
+					/>
+					<RangeControl
+						label={ __( 'Bar thickness (px)' ) }
+						value={ chartSettings.barHeight }
+						onChange={ value => {
+							setAttributes( { chartSettings: { ...chartSettings, barHeight: value } } );
+						} }
+						min={ 1 }
+						max={ 100 }
+					/>
+					<TextControl
+						type="text"
+						label={ __( 'Units (for axis)' ) }
+						value={ chartSettings.unit }
+						onChange={ value => setAttributes( { chartSettings: { ...chartSettings, unit: value } } ) }
+					/>
+					<PanelColorSettings
+						title={ __( 'Color Settings' ) }
+						initialOpen
+						colorSettings={ [
+							{
+								value: defaultColors.barA,
+								onChange: color => setAttributes( { defaultColors: { ...defaultColors, barA: color } } ),
+								label: __( 'Apply to Bars A (+ve)' ),
+							},
+							{
+								value: defaultColors.barB,
+								onChange: color => setAttributes( { defaultColors: { ...defaultColors, barB: color } } ),
+								label: __( 'Apply to Bars B (-ve)' ),
+							},
+						] }
+					></PanelColorSettings>
+				</PanelBody>
 			</InspectorControls>
 		</>
 	);
 };
 
-export default withSelect( ( select ) => {
-	return {
-		currentUser: select( 'core' ).getCurrentUser(),
-	};
-} )( edit );
+export default compose(
+	withSelect( ( select, { clientId } ) => {
+		const innerBlocks = select( 'core/block-editor' ).getBlocksByClientId( clientId )[ 0 ].innerBlocks || [];
+
+		return {
+			currentUser: select( 'core' ).getCurrentUser(),
+			innerBlocks,
+		};
+	} ),
+	withDispatch( ( dispatch, { clientId }, { select } ) => {
+		return {
+			// [NOT USED]
+			updateInnerBlocksAttribute( attribute ) {
+				const innerBlocks = select( 'core/block-editor' ).getBlocksByClientId( clientId )[ 0 ].innerBlocks || [];
+
+				if ( ! isEmpty( innerBlocks ) ) {
+					innerBlocks.map( block => {
+						dispatch( 'core/block-editor' ).updateBlockAttributes( block.clientId, attribute );
+					} );
+				}
+			},
+		};
+	} ),
+)( edit );

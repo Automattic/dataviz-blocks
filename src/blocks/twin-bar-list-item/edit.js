@@ -5,61 +5,18 @@
 import { __ } from '@wordpress/i18n';
 import { BlockControls, InspectorControls, RichText, PanelColorSettings } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
-
-/**
- * Internal dependencies
- */
-import renderChart from './utils/render.d3';
-import { packChartData } from '../../utils/data-utils';
-import D3Canvas from '../../components/d3-canvas';
 
 const edit = ( {
-	currentUser,
 	className,
 	setAttributes,
-	isSelected,
 	attributes: {
-		chartData,
 		label,
+		barAColor,
+		barBColor,
 		barA,
 		barB,
-		color,
 	},
 } ) => {
-	if ( currentUser.name === undefined ) {
-		return null;
-	}
-
-	function packData() {
-		return packChartData(
-			[
-				{
-					...barA,
-					color,
-				},
-				{
-					...barB,
-					color,
-				},
-			]
-		);
-	}
-
-	useEffect( () => {
-		setAttributes( {
-			class_name: className,
-			chartData: packData(),
-		} );
-	}, [] );
-
-	useEffect( () => {
-		setAttributes( {
-			chartData: packData(),
-		} );
-	}, [ barA, barB, color ] );
-
 	return (
 		<>
 			<div className={ className }>
@@ -70,42 +27,41 @@ const edit = ( {
 					onChange={ ( newValue ) => setAttributes( { label: newValue } ) }
 					placeholder={ __( 'Label' ) }
 					keepPlaceholderOnFocus
+					allowedFormats={ [] }
+					multiline={ false }
 				/>
-				{ ! isSelected &&
-					<D3Canvas className={ `${ className }__canvas` } chartData={ chartData } chartRenderer={ renderChart } />
-				}
-				{ isSelected &&
-					<div className={ `${ className }__controls` }>
-						<TextControl
-							type="number"
-							label={ __( 'A' ) }
-							value={ barA.fill }
-							onChange={ ( value ) => setAttributes( { barA: { ...barA, fill: value } } ) }
-						/>
-						<TextControl
-							type="number"
-							label={ __( 'B' ) }
-							value={ barB.fill }
-							onChange={ ( value ) => setAttributes( { barB: { ...barB, fill: value } } ) }
-						/>
-					</div>
-				}
+				<div className={ `${ className }__controls` }>
+					<TextControl
+						type="number"
+						label={ __( 'A (+ve)' ) }
+						value={ barA.fill }
+						onChange={ fill => setAttributes( { barA: { ...barA, fill } } ) }
+					/>
+					<TextControl
+						type="number"
+						label={ __( 'B (-ve)' ) }
+						value={ barB.fill }
+						onChange={ fill => setAttributes( { barB: { ...barB, fill } } ) }
+					/>
+				</div>
 			</div>
+
 			<BlockControls></BlockControls>
+
 			<InspectorControls>
-				<PanelBody title={ 'Label Settings' } initialOpen={ false }>
+				<PanelBody title={ 'Meta Settings' } initialOpen={ false }>
 					<div className={ `${ className }__label-settings` }>
 						<TextControl
 							type="text"
 							label={ __( 'Bar A Description' ) }
 							value={ barA.description }
-							onChange={ ( value ) => setAttributes( { barA: { ...barA, description: value } } ) }
+							onChange={ description => setAttributes( { barA: { ...barA, description } } ) }
 						/>
 						<TextControl
 							type="text"
 							label={ __( 'Bar B Description' ) }
 							value={ barB.description }
-							onChange={ ( value ) => setAttributes( { barB: { ...barB, description: value } } ) }
+							onChange={ description => setAttributes( { barB: { ...barB, description } } ) }
 						/>
 					</div>
 				</PanelBody>
@@ -114,9 +70,14 @@ const edit = ( {
 					initialOpen
 					colorSettings={ [
 						{
-							value: color,
-							onChange: ( barColor ) => setAttributes( { color: barColor } ),
-							label: __( 'Bar Color' ),
+							value: barAColor,
+							onChange: color => setAttributes( { barAColor: color } ),
+							label: __( 'Bar A Color' ),
+						},
+						{
+							value: barBColor,
+							onChange: color => setAttributes( { barBColor: color } ),
+							label: __( 'Bar B Color' ),
 						},
 					] }
 				>
@@ -126,16 +87,4 @@ const edit = ( {
 	);
 };
 
-export default withSelect( ( select ) => {
-	return {
-		currentUser: select( 'core' ).getCurrentUser(),
-	};
-} )( edit );
-
-	// function updateNumberAttribute( element ) {
-	// 	setAttributes( { [ element.target.name ]: parseInt( element.target.value, 10 ) } );
-	// }
-
-	// function updateAttribute( element ) {
-	// 	setAttributes( { [ element.target.name ]: element.target.value } );
-	// }
+export default edit;

@@ -13,7 +13,7 @@ import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
 	registerBlockType( 'a8c-dataviz/twin-bar-list-item', {
-		title: __( 'Twin-bar List Item' ),
+		title: __( 'Twin-Bars Row' ),
 		description: __( 'A stacked-bars list item.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
@@ -22,7 +22,7 @@ export function registerBlock() {
 			reusable: false,
 			html: false,
 		},
-		parent: [ 'a8c-dataviz/twin-bar-list' ],
+		parent: [ 'a8c-dataviz/twin-bar-chart' ],
 		styles: [
 			{
 				name: 'horizontal',
@@ -35,36 +35,31 @@ export function registerBlock() {
 			},
 		],
 		attributes: {
-			alignment: {
-				type: 'string',
-				default: 'left',
-			},
-			class_name: {
-				type: 'string',
-			},
-			chartData: {
-				type: 'string',
-			},
 			label: {
 				type: 'string',
+				default: 'Label',
+			},
+			barAColor: {
+				type: 'string',
+				default: 'rgba(205, 38, 83, 0.5)',
+			},
+			barBColor: {
+				type: 'string',
+				default: 'rgba(205, 38, 83, 1)',
 			},
 			barA: {
 				type: 'object',
 				default: {
-					fill: 100,
+					fill: 10,
 					description: 'Bar A description',
 				},
 			},
 			barB: {
 				type: 'object',
 				default: {
-					fill: 100,
+					fill: 5,
 					description: 'Bar B description',
 				},
-			},
-			color: {
-				type: 'string',
-				default: 'rgb(205, 38, 83)',
 			},
 		},
 		edit,
