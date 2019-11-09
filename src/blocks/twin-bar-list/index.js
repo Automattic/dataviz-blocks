@@ -47,8 +47,8 @@ export function registerBlock() {
 			defaultColors: {
 				type: 'object',
 				default: {
-					barA: 'rgba(205, 38, 83, 1)',
-					barB: 'rgba(205, 38, 83, 0.5)',
+					barA: 'rgba(205, 38, 83, 0.5)',
+					barB: 'rgba(205, 38, 83, 1)',
 				},
 			},
 			chartData: {

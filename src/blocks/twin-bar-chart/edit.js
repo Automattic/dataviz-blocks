@@ -18,7 +18,7 @@ import D3Canvas from '../../components/d3-canvas';
 const ALLOWED_BLOCKS = [ 'a8c-dataviz/twin-bar-list-item' ];
 const TEMPLATE = [ [ 'a8c-dataviz/twin-bar-list-item' ] ];
 
-const edit = ( { hasSelectedInnerBlock, isSelected, updateInnerBlocksAttribute, innerBlocks, className, setAttributes, attributes: { defaultColors, chartSettings, chartData } } ) => {
+const edit = ( { hasSelectedInnerBlock, updateInnerBlocksAttribute, innerBlocks, className, setAttributes, attributes: { defaultColors, chartSettings, chartData } } ) => {
 	function packData() {
 		return packChartData(
 			{
@@ -56,13 +56,15 @@ const edit = ( { hasSelectedInnerBlock, isSelected, updateInnerBlocksAttribute, 
 		updateInnerBlocksAttribute( { barBColor: defaultColors.barB } );
 	}, [ defaultColors.barB ] );
 
+	const showInnerBlocks = hasSelectedInnerBlock || isEmpty( innerBlocks );
+
 	return (
 		<>
 			<div className={ className }>
-				{ ! hasSelectedInnerBlock &&
+				{ ! showInnerBlocks &&
 					<D3Canvas className={ `${ className }__canvas` } chartData={ chartData } chartRenderer={ renderChart } />
 				}
-				{ hasSelectedInnerBlock &&
+				{ showInnerBlocks &&
 					<InnerBlocks
 						template={ TEMPLATE }
 						allowedBlocks={ ALLOWED_BLOCKS }
@@ -85,7 +87,7 @@ export default compose(
 				return true;
 			}
 
-			// innerBlocks may change to default to null if empty...
+			// `innerBlocks` may change to default to null if empty...
 			if ( ! isEmpty( innerBlocks ) ) {
 				for ( const block of innerBlocks ) {
 					if ( block.clientId === selected_mem || block.innerBlocks.length && hasSelectedInnerBlock_mem( block ) ) {

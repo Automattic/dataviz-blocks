@@ -33,13 +33,13 @@ const edit = ( {
 				<div className={ `${ className }__controls` }>
 					<TextControl
 						type="number"
-						label={ __( 'A (+ve)' ) }
+						label={ __( 'Bar A (+ve)' ) }
 						value={ barA.fill }
 						onChange={ fill => setAttributes( { barA: { ...barA, fill } } ) }
 					/>
 					<TextControl
 						type="number"
-						label={ __( 'B (-ve)' ) }
+						label={ __( 'Bar B (-ve)' ) }
 						value={ barB.fill }
 						onChange={ fill => setAttributes( { barB: { ...barB, fill } } ) }
 					/>

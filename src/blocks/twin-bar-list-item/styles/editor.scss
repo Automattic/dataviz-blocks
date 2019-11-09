@@ -3,13 +3,18 @@
 .wp-block-a8c-dataviz-twin-bar-list-item {
 	display: flex;
 	flex-direction: row;
+	flex-flow: wrap;
 	align-items: center;
-    justify-content: center;
+	justify-content: center;
+
+	@media (min-width: 300px) {
+		flex-flow: nowrap;
+	}
 }
 
 .wp-block-a8c-dataviz-twin-bar-list-item {
 	> .block-editor-rich-text {
-		width: 20%;
+		min-width: 20%;
 	}
 }
 

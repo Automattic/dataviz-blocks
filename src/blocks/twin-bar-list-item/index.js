@@ -37,7 +37,6 @@ export function registerBlock() {
 		attributes: {
 			label: {
 				type: 'string',
-				default: 'Label',
 			},
 			barAColor: {
 				type: 'string',
