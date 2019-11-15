@@ -40,7 +40,7 @@ export function registerBlock() {
 					order: 'stacked',
 					unit: '%',
 					barHeight: 40, // px
-					spaceBetween: 10, // px
+					spaceBetween: 10, // %
 					labelWidth: 10, // %
 				},
 			},

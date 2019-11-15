@@ -61,13 +61,13 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 				<Toolbar
 					controls={ [
 						{
-							icon: 'editor-justify',
+							icon: 'editor-alignleft',
 							title: __( 'Split at zero' ),
 							isActive: chartSettings.order === 'split',
 							onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'split' } } ),
 						},
 						{
-							icon: 'editor-alignleft',
+							icon: 'text',
 							title: __( 'Stacked bars' ),
 							isActive: chartSettings.order === 'stacked',
 							onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'stacked' } } ),
@@ -95,13 +95,13 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 					<Toolbar
 						controls={ [
 							{
-								icon: 'editor-justify',
+								icon: 'editor-alignleft',
 								title: __( 'Split at zero' ),
 								isActive: chartSettings.order === 'split',
 								onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'split' } } ),
 							},
 							{
-								icon: 'editor-alignleft',
+								icon: 'text',
 								title: __( 'Stacked bars' ),
 								isActive: chartSettings.order === 'stacked',
 								onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'stacked' } } ),
@@ -118,7 +118,7 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 						max={ 50 }
 					/>
 					<RangeControl
-						label={ __( 'Space between bars (px)' ) }
+						label={ __( 'Padding (%)' ) }
 						value={ chartSettings.spaceBetween }
 						onChange={ value => {
 							setAttributes( { chartSettings: { ...chartSettings, spaceBetween: value } } );

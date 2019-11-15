@@ -1,9 +1,14 @@
 /* editor styles */
+.wp-block-a8c-dataviz-twin-bar-list {
+	.wp-block-a8c-dataviz-twin-bar-list__heading {
+		margin-bottom: 0;
+	 }
+}
 
 .wp-block-a8c-dataviz-twin-bar-list__heading,
 .wp-block-a8c-dataviz-twin-bar-list__subheading {
 	// @todo: clk: set alignment in editor
-	text-align: center;
+	// text-align: center;
 }
 
 .wp-block-a8c-dataviz-twin-bar-list__canvas {

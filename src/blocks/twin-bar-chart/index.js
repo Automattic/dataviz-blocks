@@ -28,9 +28,9 @@ export function registerBlock() {
 				default: {
 					order: 'stacked',
 					unit: '%',
-					barHeight: 40, // px
-					spaceBetween: 10, // px
-					labelWidth: 10, // %
+					barHeight: 40,
+					spaceBetween: 10,
+					labelWidth: 10,
 				},
 			},
 			defaultColors: {
