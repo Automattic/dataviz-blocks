@@ -4,7 +4,7 @@
 // eslint-disable-next-line wpcalypso/import-docblock
 import { __ } from '@wordpress/i18n';
 import { BlockControls, InspectorControls, RichText, InnerBlocks, PanelColorSettings } from '@wordpress/block-editor';
-import { Toolbar, PanelBody, RangeControl, TextControl } from '@wordpress/components';
+import { Toolbar, PanelBody, RangeControl, TextControl, ToggleControl } from '@wordpress/components';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { isEmpty } from 'lodash';
 import { useEffect } from '@wordpress/element';
@@ -109,7 +109,7 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 						] }
 					/>
 					<RangeControl
-						label={ __( 'Label width' ) }
+						label={ __( 'Label Width' ) }
 						value={ chartSettings.labelWidth }
 						onChange={ value => {
 							setAttributes( { chartSettings: { ...chartSettings, labelWidth: value } } );
@@ -127,13 +127,18 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 						max={ 100 }
 					/>
 					<RangeControl
-						label={ __( 'Bar thickness' ) }
+						label={ __( 'Bar Thickness' ) }
 						value={ chartSettings.barHeight }
 						onChange={ value => {
 							setAttributes( { chartSettings: { ...chartSettings, barHeight: value } } );
 						} }
 						min={ 1 }
 						max={ 100 }
+					/>
+					<ToggleControl
+						label={ __( 'Show Axes' ) }
+						checked={ chartSettings.axes }
+						onChange={ value => setAttributes( { chartSettings: { ...chartSettings, axes: value } } ) }
 					/>
 					<TextControl
 						type="text"

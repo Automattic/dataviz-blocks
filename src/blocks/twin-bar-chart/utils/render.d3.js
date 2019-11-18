@@ -93,7 +93,10 @@ function renderChart() {
 
 	groups.call( renderBars, data, xScale, yScale );
 	svg.call( renderYAxis, xScale, yScaleAxis, margin );
-	svg.call( renderXAxis, xScale, yScaleAxis, margin, computedHeight, xAxisSpace );
+
+	if ( data.axes ) {
+		svg.call( renderXAxis, xScale, yScaleAxis, margin, computedHeight, xAxisSpace );
+	}
 }
 
 function renderBars( groups, data, x, y ) {
