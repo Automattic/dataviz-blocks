@@ -37,127 +37,115 @@ export default function render( ref ) {
 function renderChart() {
 	const svg = d3.select( this );
 	const data = unpackChartData( svg.attr( 'data' ) );
+
 	const axesMax = [
 		d3.max( data.groups, group => Number( group.bars[ 0 ].fill ) ),
 		d3.max( data.groups, group => Number( group.bars[ 1 ].fill ) ),
 	];
 	const max = d3.max( axesMax );
-	// % available after subtracting label width
-	const spaceAvailableForBars = 100 - data.labelWidth;
-	const svgHeight = data.barHeight * data.groups.length;
 
-	// @todo: clk: refactor
-	const barScale = index => (
-		data.order === 'split'
-			? getScaleForBars( axesMax[ index ], d3.sum( axesMax ), spaceAvailableForBars )
-			: getScaleForBars( max, max, spaceAvailableForBars )
-	);
-	const yScale = getOrdinalScale( data, svgHeight );
-
-	/**
-	 * @todo: clk: gradually move out
-	 * y in pixels
-	 * x in %
-	 */
-	const barOrigins = {
-		vertical: {
-			stacked: {
-				x: [
-					() => data.labelWidth,
-					() => data.labelWidth,
-				],
-				y: [
-					null,
-					null,
-				],
-			},
-			split: {
-				x: [
-					() => data.labelWidth + barScale( 1 )( axesMax[ 1 ] ),
-					fill => barScale( 1 )( axesMax[ 1 ] ) - barScale( 1 )( fill ),
-				],
-				y: [
-					null,
-					null,
-				],
-			},
-		},
+	// const margin = { top: 20, right: 30, bottom: 40, left: 30 };
+	const margin = {
+		top: 10,
+		right: 10,
+		bottom: 20,
+		left: data.order === 'split' ? 10 : data.labelWidth,
 	};
 
-	/**
-	 * @todo: clk: gradually move out
-	 * y in pixels
-	 * x in %
-	 */
-	const labelOrigins = {
-		vertical: {
-			stacked: {
-				x: () => data.labelWidth - 1,
-				y: () => yScale.bandwidth() / 2, // data.barHeight / 2,
-			},
-			split: {
-				x: () => barScale( 1 )( axesMax[ 1 ] ) + data.labelWidth / 2,
-				y: () => yScale.bandwidth() / 2,
-			},
-		},
-	};
+	const svgClientSize = svg.node().getBoundingClientRect();
+	const elementWidth = svgClientSize.width;
+	const computedHeight = data.barHeight * data.groups.length;
+
+	const width = elementWidth - margin.left - margin.right;
+	const xAxisSpace = data.axes ? 30 : 0;
+	const svgHeight = computedHeight + margin.top + margin.bottom + xAxisSpace;
+
+	const xScale = d3.scaleLinear()
+		.domain( [
+			data.order === 'stacked' ? 0 : -axesMax[ 1 ],
+			data.order === 'stacked' ? max : axesMax[ 0 ],
+		] )
+		.nice()
+		.range( [ 0, width ] );
+
+	const yScale = d3.scaleBand()
+		.domain( data.groups.map( ( d, i ) => i ) )
+		.rangeRound( [ 0, computedHeight ] )
+		.paddingInner( data.spaceBetween / 100 );
+
+	const yScaleAxis = d3.scaleBand()
+		.domain( data.groups.map( d => d.label ) )
+		.rangeRound( [ 0, computedHeight ] )
+		.paddingInner( data.spaceBetween / 100 );
 
 	svg.attr( 'data', null ); // clears data attr
-	svg.attr( 'height', svgHeight + 50 );
-
-	const axis = d3.axisBottom( yScale );
+	svg.attr( 'height', svgHeight );
+	svg.attr( 'width', elementWidth );
+	svg.attr( 'viewBox', `0 0 ${ elementWidth } ${ svgHeight }` );
 
 	const groups = svg
 		.selectAll( 'g' )
 		.data( data.groups )
 		.join( 'g' )
 		.attr( 'transform', ( d, i ) => (
-			`translate(0, ${ yScale( i ) } )`
+			`translate(${ margin.left }, ${ yScale( i ) + margin.top } )`
 		) );
 
-	groups.call( renderLabels, labelOrigins, data.order );
-	// groups.call( renderBars, barOrigins, data.order, data.barHeight, barScale );
-	groups.call( renderBars, barOrigins, data.order, yScale.bandwidth(), barScale );
-
-	svg
-		.append( 'g' )
-		.attr( 'transform', `translate(0, ${ svgHeight } )` )
-		.call( axis );
+	groups.call( renderBars, data, xScale, yScale );
+	svg.call( renderYAxis, xScale, yScaleAxis, margin );
+	svg.call( renderXAxis, xScale, yScaleAxis, margin, computedHeight, xAxisSpace );
 }
 
-function renderBars( groups, barOrigins, order, barHeight, barScale ) {
+function renderBars( groups, data, x, y ) {
 	groups.selectAll( 'rect' )
 		.data( d => d.bars )
 		.join( 'rect' )
-		.attr( 'x', ( d, i ) => `${ barOrigins.vertical[ order ].x[ i ]( Number( d.fill ) ) }%` )
-		.attr( 'height', barHeight )
-		.attr( 'width', ( d, i ) => `${ barScale( i )( Number( d.fill ) ) }%` )
+		.attr( 'x', ( d, i ) => `${ x( Math.min( 0, transformValue( d.fill, i, data.order ) ) ) }` )
+		.attr( 'height', y.bandwidth )
+		.attr( 'width', ( d, i ) => `${ Math.abs( x( transformValue( d.fill, i, data.order ) ) - x( 0 ) ) }` )
 		.attr( 'fill', d => d.color );
 }
 
-function renderLabels( groups, labelOrigins, order ) {
-	const textAnchor = order === 'split' ? 'middle' : 'end';
-	const dominantBaseline = 'middle';
-	const textX = `${ labelOrigins.vertical[ order ].x() }%`;
-	const textY = labelOrigins.vertical[ order ].y();
+function renderXAxis( svg, xScale, yScaleAxis, margin, computedHeight, xAxisSpace ) {
+	const xAxis = d3.axisBottom( xScale )
+		.ticks( 5 )
+		.tickSize( 0 )
+		.tickPadding( 9 );
+	const container = svg.append( 'g' );
 
-	groups.append( 'text' )
-		.text( d => d.label )
-		.attr( 'text-anchor', textAnchor )
-		.attr( 'dominant-baseline', dominantBaseline )
-		.attr( 'x', textX )
-		.attr( 'y', textY );
+	container
+		.attr( 'transform', `translate(${ margin.left }, ${ computedHeight + margin.top + xAxisSpace / 2 })` )
+		.call( xAxis );
+
+	container
+		.selectAll( 'path' )
+		.attr( 'stroke-dasharray', '2,2' );
 }
 
-function getOrdinalScale( data, rangeMax ) {
-	return d3.scaleBand()
-		.domain( data.groups.map( ( d, i ) => i ) )
-		.rangeRound( [ 0, rangeMax ] )
-		.paddingInner( data.spaceBetween / 100 );
+function renderYAxis( svg, xScale, yScaleAxis, margin ) {
+	const yAxis = d3.axisLeft( yScaleAxis )
+		.tickSize( 0 )
+		.tickPadding( 6 );
+	const container = svg.append( 'g' );
+
+	container
+		.attr( 'transform', `translate(${ xScale( 0 ) + margin.left }, ${ margin.top })` )
+		.call( yAxis );
+
+	container
+		.selectAll( 'text' )
+		.style( 'font-size', '1.5em' );
+
+	container
+		.selectAll( 'path' )
+		.attr( 'stroke', 'white' );
 }
 
-function getScaleForBars( axisMax, axesTotal, spaceAvailable ) {
-	return d3.scaleLinear()
-		.domain( [ 0, axisMax ] )
-		.range( [ 0, ( axisMax * spaceAvailable ) / axesTotal ] );
+function transformValue( value, index, order ) {
+	if ( order === 'split' ) {
+		if ( index === 1 ) {
+			return -value;
+		}
+	}
+	return value;
 }

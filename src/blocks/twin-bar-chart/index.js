@@ -30,7 +30,8 @@ export function registerBlock() {
 					unit: '%',
 					barHeight: 40,
 					spaceBetween: 10,
-					labelWidth: 10,
+					labelWidth: 30,
+					axes: true,
 				},
 			},
 			defaultColors: {

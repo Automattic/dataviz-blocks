@@ -61,13 +61,13 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 				<Toolbar
 					controls={ [
 						{
-							icon: 'editor-alignleft',
+							icon: 'text',
 							title: __( 'Split at zero' ),
 							isActive: chartSettings.order === 'split',
 							onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'split' } } ),
 						},
 						{
-							icon: 'text',
+							icon: 'editor-alignleft',
 							title: __( 'Stacked bars' ),
 							isActive: chartSettings.order === 'stacked',
 							onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'stacked' } } ),
@@ -95,13 +95,13 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 					<Toolbar
 						controls={ [
 							{
-								icon: 'editor-alignleft',
+								icon: 'text',
 								title: __( 'Split at zero' ),
 								isActive: chartSettings.order === 'split',
 								onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'split' } } ),
 							},
 							{
-								icon: 'text',
+								icon: 'editor-alignleft',
 								title: __( 'Stacked bars' ),
 								isActive: chartSettings.order === 'stacked',
 								onClick: () => setAttributes( { chartSettings: { ...chartSettings, order: 'stacked' } } ),
@@ -109,16 +109,16 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 						] }
 					/>
 					<RangeControl
-						label={ __( 'Label width (%)' ) }
+						label={ __( 'Label width' ) }
 						value={ chartSettings.labelWidth }
 						onChange={ value => {
 							setAttributes( { chartSettings: { ...chartSettings, labelWidth: value } } );
 						} }
 						min={ 1 }
-						max={ 50 }
+						max={ 100 }
 					/>
 					<RangeControl
-						label={ __( 'Padding (%)' ) }
+						label={ __( 'Padding' ) }
 						value={ chartSettings.spaceBetween }
 						onChange={ value => {
 							setAttributes( { chartSettings: { ...chartSettings, spaceBetween: value } } );
@@ -127,7 +127,7 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 						max={ 100 }
 					/>
 					<RangeControl
-						label={ __( 'Bar thickness (px)' ) }
+						label={ __( 'Bar thickness' ) }
 						value={ chartSettings.barHeight }
 						onChange={ value => {
 							setAttributes( { chartSettings: { ...chartSettings, barHeight: value } } );
