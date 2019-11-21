@@ -1,5 +1,5 @@
 export default function save() {
-	return null;
+	return <InnerBlocks.Content />;
 }
 
 /**

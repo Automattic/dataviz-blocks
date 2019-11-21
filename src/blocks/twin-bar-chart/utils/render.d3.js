@@ -141,7 +141,7 @@ function renderYAxis( svg, xScale, yScaleAxis, margin ) {
 
 	container
 		.selectAll( 'path' )
-		.attr( 'stroke', 'white' );
+		.attr( 'stroke', 'none' );
 }
 
 function transformValue( value, index, order ) {

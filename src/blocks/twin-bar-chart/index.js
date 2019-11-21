@@ -44,6 +44,9 @@ export function registerBlock() {
 			chartData: {
 				type: 'string',
 			},
+			class_name: {
+				type: 'string',
+			},
 		},
 		edit,
 		save,

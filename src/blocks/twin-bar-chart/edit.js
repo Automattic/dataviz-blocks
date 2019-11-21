@@ -56,6 +56,10 @@ const edit = ( { hasSelectedInnerBlock, updateInnerBlocksAttribute, innerBlocks,
 		updateInnerBlocksAttribute( { barBColor: defaultColors.barB } );
 	}, [ defaultColors.barB ] );
 
+	useEffect( () => {
+		setAttributes( { class_name: className } );
+	}, [] );
+
 	const showInnerBlocks = hasSelectedInnerBlock || isEmpty( innerBlocks );
 
 	return (

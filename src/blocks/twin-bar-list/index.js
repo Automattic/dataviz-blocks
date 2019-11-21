@@ -60,12 +60,10 @@ export function registerBlock() {
 				default: 3,
 			},
 			heading: {
-				source: 'html',
-				selector: '.wp-blocks-a8c-dataviz-twin-bar-list__heading',
+				type: 'string',
 			},
 			subheading: {
-				source: 'html',
-				selector: '.wp-blocks-a8c-dataviz-twin-bar-list__subheading',
+				type: 'string',
 			},
 		},
 		edit,

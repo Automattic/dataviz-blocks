@@ -9,17 +9,26 @@
 // specific to override
 .wp-block-a8c-dataviz-twin-bar-list {
 	.wp-block-a8c-dataviz-twin-bar-list__heading {
-		margin-bottom: 10px;
-	}
+		// margin-bottom: 10px;
+		margin-bottom: 0;
+	 }
 }
 
 .wp-block-a8c-dataviz-twin-bar-list__subheading {
 	margin-bottom: 30px;
 }
 
-.wp-block-a8c-dataviz-twin-bar-list-item__canvas {
+// .wp-block-a8c-dataviz-twin-bar-list-item__canvas {
+// 	svg {
+// 		width: 100%;
+// 		height: 50px;
+// 	}
+// }
+
+// @todo: clk: needed?
+.wp-block-a8c-dataviz-twin-bar-list__canvas {
+	padding: 10px;
 	svg {
 		width: 100%;
-		height: 50px;
 	}
 }
