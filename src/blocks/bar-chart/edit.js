@@ -15,8 +15,8 @@ import { compose } from '@wordpress/compose';
  */
 import HeadingToolbar from '../../components/heading-toolbar';
 
-const ALLOWED_BLOCKS = [ 'a8c-dataviz/twin-bar-chart' ];
-const TEMPLATE = [ [ 'a8c-dataviz/twin-bar-chart' ] ];
+const ALLOWED_BLOCKS = [ 'a8c-dataviz/bar-chart-canvas' ];
+const TEMPLATE = [ [ 'a8c-dataviz/bar-chart-canvas' ] ];
 
 const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttributes, attributes: { defaultColors, chartSettings, chartData, heading, level, subheading } } ) => {
 	if ( currentUser.name === undefined ) {
@@ -169,17 +169,13 @@ const edit = ( { currentUser, updateInnerBlocksAttribute, className, setAttribut
 };
 
 export default compose(
-	withSelect( ( select, { clientId } ) => {
-		const innerBlocks = select( 'core/block-editor' ).getBlocksByClientId( clientId )[ 0 ].innerBlocks || [];
-
+	withSelect( ( select ) => {
 		return {
 			currentUser: select( 'core' ).getCurrentUser(),
-			innerBlocks,
 		};
 	} ),
 	withDispatch( ( dispatch, { clientId }, { select } ) => {
 		return {
-			// [NOT USED]
 			updateInnerBlocksAttribute( attribute ) {
 				const innerBlocks = select( 'core/block-editor' ).getBlocksByClientId( clientId )[ 0 ].innerBlocks || [];
 

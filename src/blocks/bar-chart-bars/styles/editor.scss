@@ -1,6 +1,6 @@
 /* Front end styles */
 
-.wp-block-a8c-dataviz-twin-bar-list-item {
+.wp-block-a8c-dataviz-bar-chart-bars {
 	display: flex;
 	flex-direction: row;
 	flex-flow: wrap;
@@ -12,19 +12,19 @@
 	}
 }
 
-.wp-block-a8c-dataviz-twin-bar-list-item {
+.wp-block-a8c-dataviz-bar-chart-bars {
 	> .block-editor-rich-text {
 		min-width: 20%;
 	}
 }
 
-.wp-block-a8c-dataviz-twin-bar-list-item__label {
+.wp-block-a8c-dataviz-bar-chart-bars__label {
 	width: 100%;
 	padding-right: 5px; // minimum space
 
 }
 
-.wp-block-a8c-dataviz-twin-bar-list-item__controls {
+.wp-block-a8c-dataviz-bar-chart-bars__controls {
 	display: flex;
 	flex-direction: row;
 }

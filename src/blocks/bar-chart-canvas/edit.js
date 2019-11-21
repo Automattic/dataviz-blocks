@@ -15,10 +15,20 @@ import { packChartData } from '../../utils/data-utils';
 import renderChart from './utils/render.d3';
 import D3Canvas from '../../components/d3-canvas';
 
-const ALLOWED_BLOCKS = [ 'a8c-dataviz/twin-bar-list-item' ];
-const TEMPLATE = [ [ 'a8c-dataviz/twin-bar-list-item' ] ];
+const ALLOWED_BLOCKS = [ 'a8c-dataviz/bar-chart-bars' ];
+const TEMPLATE = [ [ 'a8c-dataviz/bar-chart-bars' ] ];
 
-const edit = ( { hasSelectedInnerBlock, updateInnerBlocksAttribute, innerBlocks, className, setAttributes, attributes: { defaultColors, chartSettings, chartData } } ) => {
+const edit = ( {
+	hasSelectedInnerBlock,
+	updateInnerBlocksAttribute,
+	innerBlocks,
+	className,
+	setAttributes,
+	attributes: {
+		defaultColors,
+		chartSettings,
+		chartData,
+} } ) => {
 	function packData() {
 		return packChartData(
 			{
@@ -110,7 +120,6 @@ export default compose(
 	} ),
 	withDispatch( ( dispatch, { clientId }, { select } ) => {
 		return {
-			// [NOT USED]
 			updateInnerBlocksAttribute( attribute ) {
 				const innerBlocks = select( 'core/block-editor' ).getBlocksByClientId( clientId )[ 0 ].innerBlocks || [];
 

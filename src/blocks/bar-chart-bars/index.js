@@ -12,16 +12,17 @@ import save from './save';
 import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
-	registerBlockType( 'a8c-dataviz/twin-bar-list', {
-		title: __( 'Twin-Bars' ),
-		description: __( 'A simple stacked-bars list.' ),
+	registerBlockType( 'a8c-dataviz/bar-chart-bars', {
+		title: __( 'Bars' ),
+		description: __( 'A bar chart bars set.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		supports: {
 			inserter: true,
+			reusable: false,
 			html: false,
-			align: [ 'wide', 'full' ],
 		},
+		parent: [ 'a8c-dataviz/bar-chart-canvas' ],
 		styles: [
 			{
 				name: 'horizontal',
@@ -34,36 +35,30 @@ export function registerBlock() {
 			},
 		],
 		attributes: {
-			chartSettings: {
+			label: {
+				type: 'string',
+			},
+			barAColor: {
+				type: 'string',
+				default: 'rgba(205, 38, 83, 0.5)',
+			},
+			barBColor: {
+				type: 'string',
+				default: 'rgba(205, 38, 83, 1)',
+			},
+			barA: {
 				type: 'object',
 				default: {
-					order: 'stacked',
-					unit: '%',
-					barHeight: 40, // px
-					spaceBetween: 10, // %
-					labelWidth: 30, // %
-					axes: true,
+					fill: 10,
+					description: 'Bar A description',
 				},
 			},
-			defaultColors: {
+			barB: {
 				type: 'object',
 				default: {
-					barA: 'rgba(205, 38, 83, 0.5)',
-					barB: 'rgba(205, 38, 83, 1)',
+					fill: 5,
+					description: 'Bar B description',
 				},
-			},
-			chartData: {
-				type: 'string',
-			},
-			level: {
-				type: 'number',
-				default: 3,
-			},
-			heading: {
-				type: 'string',
-			},
-			subheading: {
-				type: 'string',
 			},
 		},
 		edit,

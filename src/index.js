@@ -16,13 +16,13 @@ setCategories( [
  * Load all our blocks
  */
 import * as demoD3 from './blocks/demo-d3';
-import * as twinBarList from './blocks/twin-bar-list';
-import * as twinBarChart from './blocks/twin-bar-chart';
-import * as twinBarListItem from './blocks/twin-bar-list-item';
+import * as barChart from './blocks/bar-chart';
+import * as barChartCanvas from './blocks/bar-chart-canvas';
+import * as barChartBars from './blocks/bar-chart-bars';
 
 // Instantiate the blocks, adding them to our block category
 // TODO: improve this
 demoD3.registerBlock();
-twinBarList.registerBlock();
-twinBarChart.registerBlock();
-twinBarListItem.registerBlock();
+barChart.registerBlock();
+barChartCanvas.registerBlock();
+barChartBars.registerBlock();

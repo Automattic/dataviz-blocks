@@ -12,15 +12,15 @@ import save from './save';
 import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
-	registerBlockType( 'a8c-dataviz/twin-bar-chart', {
-		title: __( 'Twin-Bars Canvas' ),
-		description: __( 'The twin-bar chart canvas.' ),
+	registerBlockType( 'a8c-dataviz/bar-chart-canvas', {
+		title: __( 'Canvas' ),
+		description: __( 'The bar chart canvas.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
 		supports: {
 			inserter: false,
 		},
-		parent: [ 'a8c-dataviz/twin-bar-list' ],
+		parent: [ 'a8c-dataviz/bar-chart' ],
 		styles: [],
 		attributes: {
 			chartSettings: {
