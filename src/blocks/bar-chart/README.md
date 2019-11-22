@@ -18,7 +18,7 @@ There are two modes when working with the block: live preview mode and block mod
 
 |Preview Mode Options|
 |:---|
-|<img src="./docs/preview-mode.png" width="700" />|
+|<img src="./docs/preview-mode.png" width="600" />|
 
 In preview mode, the chart is not selected and the rendered/visible chart is shown in the editor. This is the same chart that will be shown on the frontend. The sidebar includes various options/settings that can be adjusted to customize the chart. The visible chart is a live preview that gets updated dynamically as you modify options.
 
@@ -28,7 +28,7 @@ There are options to switch between "stacked" and "split at origin" views, chang
 
 |Block Mode Options|
 |:---|
-|<img src="./docs/block-mode.png" width="700" />|
+|<img src="./docs/block-mode.png" width="600" />|
 
 When the chart is selected, the underlying blocks become visible instead. These represent the actual bars that are rendered in the chart. They can be re-ordered as normal blocks. With a block selected, you may modify per-bar descriptions and colors from the sidebar.
 
