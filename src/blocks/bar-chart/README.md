@@ -1,6 +1,6 @@
 # Bar Chart Block (dev)
 
-A dataviz block for creating simple bar charts with either stacked bars or +ve/-ve split at origin/0.
+A dataviz Gutenberg block for creating simple bar charts with either stacked bars or +ve/-ve scales split at origin/0. Examples:
 
 |Stacked|
 |:---|
