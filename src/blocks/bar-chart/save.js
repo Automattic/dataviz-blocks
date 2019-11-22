@@ -9,16 +9,20 @@ const save = ( { attributes: { level, heading, subheading } } ) => {
 
 	return (
 		<div>
-			<RichText.Content
-				className={ `${ className }__heading` }
-				tagName={ `h${ level }` }
-				value={ heading }
-			/>
-			<RichText.Content
-				className={ `${ className }__subheading` }
-				tagName={ 'div' }
-				value={ subheading }
-			/>
+			{ heading &&
+				<RichText.Content
+					className={ `${ className }__heading` }
+					tagName={ `h${ level }` }
+					value={ heading }
+				/>
+			}
+			{ subheading &&
+				<RichText.Content
+					className={ `${ className }__subheading` }
+					tagName={ 'div' }
+					value={ subheading }
+				/>
+			}
 			<InnerBlocks.Content />
 		</div>
 	);
