@@ -119,9 +119,6 @@ add_action( 'init', function() {
 		true // in footer
 	);
 
-	// Link our registered front end JS
-	wp_enqueue_script( 'dataviz-frontend' );
-
 	// Block front end style
 	wp_register_style(
 		'dataviz-blocks',

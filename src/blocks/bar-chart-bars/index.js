@@ -12,11 +12,17 @@ import save from './save';
 import { BlockIcon } from '../../components/block-icons';
 
 export function registerBlock() {
-	registerBlockType( 'a8c-dataviz/demo-d3', {
-		title: __( 'Demo D3' ),
-		description: __( 'This is a demo.' ),
+	registerBlockType( 'a8c-dataviz/bar-chart-bars', {
+		title: __( 'Bars' ),
+		description: __( 'A bar chart bars set.' ),
 		icon: BlockIcon,
 		category: 'dataviz-blocks',
+		supports: {
+			inserter: true,
+			reusable: false,
+			html: false,
+		},
+		parent: [ 'a8c-dataviz/bar-chart-canvas' ],
 		styles: [
 			{
 				name: 'horizontal',
@@ -29,15 +35,30 @@ export function registerBlock() {
 			},
 		],
 		attributes: {
-			alignment: {
-				type: 'string',
-				default: 'left',
-			},
-			class_name: {
+			label: {
 				type: 'string',
 			},
-			chartData: {
+			barAColor: {
 				type: 'string',
+				default: 'rgba(205, 38, 83, 0.5)',
+			},
+			barBColor: {
+				type: 'string',
+				default: 'rgba(205, 38, 83, 1)',
+			},
+			barA: {
+				type: 'object',
+				default: {
+					fill: 10,
+					description: 'Bar A description',
+				},
+			},
+			barB: {
+				type: 'object',
+				default: {
+					fill: 5,
+					description: 'Bar B description',
+				},
 			},
 		},
 		edit,

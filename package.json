@@ -9,8 +9,10 @@
     "env": "wp-scripts env",
     "build:js": "wp-scripts build src/index.js src/frontend.js --output-path=build",
     "watch:js": "wp-scripts start src/index.js src/frontend.js --output-path=build",
-    "build:sass": "node-sass ./src/styles/editor.scss -o build && node-sass ./src/styles/style.scss -o build",
-    "watch:sass": "node-sass -w ./src/styles/editor.scss -o build & node-sass -w ./src/styles/style.scss -o build",
+    "build:sass:editor": "node-sass ./src/styles/editor.scss -o build",
+    "build:sass:frontend": "node-sass ./src/styles/style.scss -o build",
+    "build:sass": "yarn build:sass:editor && yarn build:sass:frontend",
+    "watch:sass": "yarn build:sass && yarn build:sass:editor -- -w & yarn build:sass:frontend -- -w",
     "start": "yarn watch:js & yarn watch:sass",
     "build": "yarn build:js && yarn build:sass"
   },

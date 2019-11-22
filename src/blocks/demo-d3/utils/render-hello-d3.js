@@ -3,8 +3,19 @@
  */
 import * as d3 from 'd3';
 
-export default function renderHelloD3( ref ) {
-	const matching = d3.selectAll( ref );
+/**
+ * Internal dependencies
+ */
+import { unpackChartData } from '../../../utils/data-utils';
+
+export default function render( ref ) {
+	let matching;
+
+	if ( typeof ref === 'string' ) {
+		matching = d3.selectAll( ref );
+	} else {
+		matching = d3.select( ref );
+	}
 
 	if ( matching.empty() ) {
 		return;
@@ -12,16 +23,27 @@ export default function renderHelloD3( ref ) {
 
 	// clear existing content
 	matching.selectAll( '*' ).remove();
-	matching.each( renderText );
+	matching.each( renderChart );
 }
 
-function renderText( d, i ) {
+function renderChart() {
 	const svg = d3.select( this );
+	// @todo: clk: `data` will contain the right props... [skeptical]
+	const data = unpackChartData( svg.attr( 'data' ) );
 
-	svg.append( 'text' )
+	renderText( svg, data );
+}
+
+function renderText( svg, data ) {
+	svg
+		.append( 'g' )
+		.selectAll( 'g' )
+		.data( data )
+		.enter()
+		.append( 'text' )
 		.attr( 'fill', 'black' )
 		.attr( 'y', '20px' )
-		.text( () => {
-			return `${ svg.attr( 'data' ) } ${ i + 1 }`;
+		.text( ( d ) => {
+			return `${ d.text }`;
 		} );
 }

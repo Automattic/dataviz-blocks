@@ -1,0 +1,20 @@
+/* editor styles */
+.wp-block-a8c-dataviz-bar-chart {
+	.wp-block-a8c-dataviz-bar-chart__heading {
+		// margin-bottom: 0;
+	 }
+}
+
+.wp-block-a8c-dataviz-bar-chart__heading,
+.wp-block-a8c-dataviz-bar-chart__subheading {
+	// @todo: clk: set alignment in editor
+	// text-align: center;
+}
+
+// @todo: clk: needed?
+.wp-block-a8c-dataviz-bar-chart__canvas {
+	padding: 10px;
+	svg {
+		width: 100%;
+	}
+}

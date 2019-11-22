@@ -1,18 +1,16 @@
 <?php
 
 function render_a8c_dataviz_demo_d3( $attributes, $content ) {
+	if ( ! is_admin() ) {
+		wp_enqueue_script( 'dataviz-frontend' );
+	}
+
 	return sprintf(
-		'<div>
-			<svg
-				class="%1$s__svg"
-				height="100"
-				width="500"
-				viewBox="0 0 500 100"
-				data="%2$s"
-			/>
+		'<div class="%1$s__canvas">
+			<svg data="%2$s" />
 		</div>',
 		$attributes[ 'class_name' ],
-		$attributes[ 'data' ]
+		$attributes[ 'chartData' ]
 	);
 }
 

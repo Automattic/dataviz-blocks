@@ -1,6 +1,6 @@
 <?php
 
-class Pages_REST_API extends WP_REST_Controller {
+class Pages_REST_API_DATAVIZ extends WP_REST_Controller {
 	const PAGES_NAMESPACE = 'pages/v1';
 	static $routes = [];
 
@@ -30,7 +30,7 @@ class Pages_REST_API extends WP_REST_Controller {
 }
 
 add_action( 'rest_api_init', function() {
-	foreach ( Pages_REST_API::$routes as $route ) {
+	foreach ( Pages_REST_API_DATAVIZ::$routes as $route ) {
 		$route->setup();
 	}
 } );
