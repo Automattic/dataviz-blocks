@@ -14,7 +14,7 @@ A dataviz Gutenberg block for creating simple bar charts with either stacked bar
 
 There are two modes when working with the block: live preview mode and block mode. These are outlined below.
 
-### Live Preview Mode
+### Preview Mode
 
 |Preview Mode Options|
 |:---|
@@ -32,6 +32,10 @@ There are options to switch between "stacked" and "split at origin" views, chang
 
 When the chart is selected, the underlying blocks become visible instead. These represent the actual bars that are rendered in the chart. They can be re-ordered as normal blocks. With a block selected, you may modify per-bar descriptions and colors from the sidebar.
 
+### Raw/Tabular Data Mode
+
+...
+
 ## Up Next
 
 ### Known Issues
@@ -41,8 +45,9 @@ When the chart is selected, the underlying blocks become visible instead. These 
 - Rethink how chart data is passed to the frontend.
 - Units in axis.
 
-### Additions
+### Features
 
+- Raw/tabular data mode...
 - Include live-preview when modifying individual bars.
 - Vertical and horizontal charts.
 - More options to customize the chart, add legends, custom bar edges, overlays, backgrounds, ability to insert raw data, focus points, etc.
